@@ -621,17 +621,19 @@ function validateSession(session){
         return { error: "Vui lòng nhập phòng học" };
     }
 
-    const roomLocation = validateRoom(room);
-    if(roomLocation.error){
-        return roomLocation;
-    }
+    // Phòng trong khu II (có trên bản đồ) → gắn routeNode để tìm đường.
+    // Phòng ngoài khu II vẫn được phép, không gắn node bản đồ.
+    const roomLocation = findLocation(room);
+    const routeNode = (!roomLocation.error && roomLocation.routeNode)
+        ? roomLocation.routeNode
+        : '';
 
     return {
         day,
         startPeriod,
         duration,
         room,
-        routeNode: roomLocation.routeNode
+        routeNode
     };
 }
 

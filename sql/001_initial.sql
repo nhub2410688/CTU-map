@@ -1,13 +1,5 @@
 -- CTU Map - Schema (multi-session classes)
 
--- Drop legacy class tables (user confirmed only test data)
-DROP TABLE IF EXISTS student_schedule_entries CASCADE;
-DROP TABLE IF EXISTS teacher_schedules CASCADE;
-DROP TABLE IF EXISTS student_enrollments CASCADE;
-DROP TABLE IF EXISTS class_schedules CASCADE;
-DROP TABLE IF EXISTS class_sections CASCADE;
-DROP TABLE IF EXISTS notifications CASCADE;
-
 CREATE TABLE IF NOT EXISTS students (
     student_id VARCHAR(8) PRIMARY KEY,
     password_hash TEXT,

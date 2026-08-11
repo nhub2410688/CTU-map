@@ -106,7 +106,6 @@ async function loadSchedule(){
                 <td data-label="Buổi học" class="sessions-cell">${formatSessions(item.schedules)}</td>
                 <td data-label="Thao tác">
                     <div class="actions">
-                        <a class="button small" href="index.html?room=${encodeURIComponent((item.schedules[0] || {}).room || '')}">Tìm phòng</a>
                         <button class="small danger" type="button" onclick="deleteSchedule('${item.id}')">Xóa</button>
                     </div>
                 </td>

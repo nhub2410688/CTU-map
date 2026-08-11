@@ -258,9 +258,6 @@ async function runGlobalSearch(){
                 <td data-label="Thứ">Thứ ${item.day}</td>
                 <td data-label="Tiết">${periodRangeText(item)}</td>
                 <td data-label="Phòng">${escapeHtml(item.room)}</td>
-                <td data-label="Tìm phòng">
-                    <a class="button small" href="index.html?room=${encodeURIComponent(item.room)}">Tìm phòng</a>
-                </td>
             </tr>
         `).join('');
 
@@ -274,7 +271,6 @@ async function runGlobalSearch(){
                         <th>Thứ</th>
                         <th>Tiết</th>
                         <th>Phòng</th>
-                        <th>Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>

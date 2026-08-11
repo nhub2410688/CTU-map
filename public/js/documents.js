@@ -43,7 +43,6 @@ async function fetchFile(documentId, mode){
             message = data.error || message;
         }
         catch{
-            // Keep the generic message for non-JSON file errors.
         }
         throw new Error(message);
     }
@@ -114,12 +113,23 @@ async function uploadDocument(event){
     event.preventDefault();
 
     try{
+        const file = document.getElementById('documentFile').files[0];
+        if(!file){
+            setStatus('documentUploadStatus', 'Vui lòng chọn file PDF', true);
+            return;
+        }
+        const name = (file.name || '').toLowerCase();
+        if(!name.endsWith('.pdf')){
+            setStatus('documentUploadStatus', 'Chỉ chấp nhận file PDF', true);
+            return;
+        }
+
         const form = new FormData();
         form.append('title', document.getElementById('documentTitle').value);
         form.append('description', document.getElementById('documentDescription').value);
         form.append('subjectId', document.getElementById('documentSubject').value);
         form.append('teacherId', document.getElementById('documentTeacher').value);
-        form.append('file', document.getElementById('documentFile').files[0]);
+        form.append('file', file);
 
         const data = await api('/api/documents', {
             method:'POST',

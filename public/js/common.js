@@ -3,10 +3,10 @@ let currentUser = JSON.parse(localStorage.getItem('ctuMapUser') || 'null');
 
 function escapeHtml(value){
     return String(value ?? '')
-        .replace(/&/g, '&')
-        .replace(/</g, '<')
-        .replace(/>/g, '>')
-        .replace(/"/g, '"')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
         .replace(/'/g, '&#039;');
 }
 
@@ -353,19 +353,23 @@ function watchResponsiveTables(){
 }
 
 function showMapTab(tabName) {
+    // Ẩn tất cả panel
     document.querySelectorAll('[data-map-tab]').forEach(panel => {
         panel.classList.add('hidden');
     });
 
+    // Hiện panel được chọn
     const activePanel = document.querySelector(`[data-map-tab="${tabName}"]`);
     if (activePanel) {
         activePanel.classList.remove('hidden');
     }
 
+    // Đổi trạng thái active của nút tab
     document.querySelectorAll('#mapTabs button').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.tab === tabName);
     });
 }
+
 
 async function refreshSession(){
     if(!authToken){
@@ -392,6 +396,7 @@ async function logout(){
         }
     }
     catch{
+        // Local logout still works if the server session has expired.
     }
 
     authToken = '';
@@ -422,20 +427,24 @@ async function initializePage(){
 }
 
 function showDocumentTab(tabName) {
+    // Ẩn tất cả panel
     document.querySelectorAll('[data-document-tab]').forEach(panel => {
         panel.classList.add('hidden');
     });
 
+    // Hiện panel được chọn
     const activePanel = document.querySelector(`[data-document-tab="${tabName}"]`);
     if (activePanel) {
         activePanel.classList.remove('hidden');
     }
 
+    // Đổi trạng thái active của nút
     document.querySelectorAll('#documentTabs button').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.tab === tabName);
     });
 }
 
+// ========== Notifications ==========
 async function loadNotifications(){
     if(!currentUser || currentUser.role !== 'student') return;
     try{
@@ -468,6 +477,7 @@ async function loadNotifications(){
         });
     }
     catch(e){
+        // silent
     }
 }
 
@@ -488,11 +498,13 @@ async function markAllNotifsRead(){
     catch(e){}
 }
 
+// Load notifs after shell
 const _origInit = initializePage;
 initializePage = async function(){
     await _origInit();
     if(currentUser?.role === 'student'){
         loadNotifications();
+        // inject minimal styles
         if(!document.getElementById('notifStyles')){
             const style = document.createElement('style');
             style.id = 'notifStyles';

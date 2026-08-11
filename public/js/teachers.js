@@ -20,6 +20,7 @@ function periodText(start, duration){
     return `${start}-${end}`;
 }
 
+// ========== Searchable select helpers ==========
 function setupSearchable(inputId, hiddenId, listId, items, getLabel, getValue){
     const input = document.getElementById(inputId);
     const hidden = document.getElementById(hiddenId);
@@ -69,6 +70,7 @@ function setSearchableValue(inputId, hiddenId, items, id, getLabel, getValue){
     }
 }
 
+// ========== Sessions ==========
 function addSessionRow(data = {}){
     sessionRowCount++;
     const id = sessionRowCount;
@@ -119,6 +121,7 @@ function clearSessions(){
     sessionRowCount = 0;
 }
 
+// ========== Subjects ==========
 async function loadSubjects(){
     try{
         const data = await api('/api/subjects');
@@ -230,6 +233,7 @@ function filterSubjects(){
     `;
 }
 
+// ========== Teachers ==========
 async function loadTeachers(){
     try{
         const data = await api('/api/teachers');
@@ -341,6 +345,7 @@ function filterTeachers(){
     `;
 }
 
+// ========== Classes ==========
 function getClassPayload(){
     return {
         classCode: document.getElementById('classCode').value,
@@ -503,6 +508,7 @@ async function deleteClass(id){
     }
 }
 
+// ========== Init ==========
 window.ctuReady.then(async () => {
     if(currentUser?.role === 'admin'){
         document.getElementById('teacherTabs').classList.remove('hidden');

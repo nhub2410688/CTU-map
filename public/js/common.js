@@ -3,10 +3,10 @@ let currentUser = JSON.parse(localStorage.getItem('ctuMapUser') || 'null');
 
 function escapeHtml(value){
     return String(value ?? '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
+        .replace(/&/g, '&')
+        .replace(/</g, '<')
+        .replace(/>/g, '>')
+        .replace(/"/g, '"')
         .replace(/'/g, '&#039;');
 }
 
@@ -76,10 +76,22 @@ function renderShell(){
             </div>
             <div class="account-area">
                 <button class="search-toggle" type="button" aria-label="Tìm kiếm lớp học" title="Tìm kiếm lớp học" onclick="openGlobalSearch()"></button>
+                ${role === 'student' ? `
+                    <button type="button" class="notif-btn" id="notifBtn" onclick="toggleNotifications()" title="Thông báo">
+                        🔔<span id="notifBadge" class="notif-badge hidden">0</span>
+                    </button>
+                ` : ''}
                 <span>${escapeHtml(userLabel)}</span>
                 ${currentUser ? '<button class="small danger" type="button" onclick="logout()">Đăng xuất</button>' : ''}
             </div>
         </nav>
+        <div id="notifPanel" class="notif-panel hidden">
+            <div class="notif-head">
+                <strong>Thông báo</strong>
+                <button type="button" class="small secondary" onclick="markAllNotifsRead()">Đánh dấu đã đọc</button>
+            </div>
+            <div id="notifList" class="notif-list"></div>
+        </div>
         <div id="globalSearchPanel" class="global-search hidden" role="dialog" aria-modal="true" aria-labelledby="globalSearchTitle">
             <div class="global-search-box">
                 <div class="global-search-head">
@@ -341,23 +353,19 @@ function watchResponsiveTables(){
 }
 
 function showMapTab(tabName) {
-    // Ẩn tất cả panel
     document.querySelectorAll('[data-map-tab]').forEach(panel => {
         panel.classList.add('hidden');
     });
 
-    // Hiện panel được chọn
     const activePanel = document.querySelector(`[data-map-tab="${tabName}"]`);
     if (activePanel) {
         activePanel.classList.remove('hidden');
     }
 
-    // Đổi trạng thái active của nút tab
     document.querySelectorAll('#mapTabs button').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.tab === tabName);
     });
 }
-
 
 async function refreshSession(){
     if(!authToken){
@@ -384,7 +392,6 @@ async function logout(){
         }
     }
     catch{
-        // Local logout still works if the server session has expired.
     }
 
     authToken = '';
@@ -415,21 +422,93 @@ async function initializePage(){
 }
 
 function showDocumentTab(tabName) {
-    // Ẩn tất cả panel
     document.querySelectorAll('[data-document-tab]').forEach(panel => {
         panel.classList.add('hidden');
     });
 
-    // Hiện panel được chọn
     const activePanel = document.querySelector(`[data-document-tab="${tabName}"]`);
     if (activePanel) {
         activePanel.classList.remove('hidden');
     }
 
-    // Đổi trạng thái active của nút
     document.querySelectorAll('#documentTabs button').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.tab === tabName);
     });
 }
+
+async function loadNotifications(){
+    if(!currentUser || currentUser.role !== 'student') return;
+    try{
+        const data = await api('/api/notifications');
+        const badge = document.getElementById('notifBadge');
+        const list = document.getElementById('notifList');
+        if(!badge || !list) return;
+
+        const unread = data.unread || 0;
+        badge.textContent = unread > 99 ? '99+' : unread;
+        badge.classList.toggle('hidden', unread === 0);
+
+        const items = data.notifications || [];
+        list.innerHTML = items.length
+            ? items.map(n => `
+                <div class="notif-item ${n.isRead ? '' : 'unread'}" data-id="${n.id}">
+                    <strong>${escapeHtml(n.title)}</strong>
+                    <p>${escapeHtml(n.message)}</p>
+                    <small>${new Date(n.createdAt).toLocaleString('vi-VN')}</small>
+                </div>
+            `).join('')
+            : '<p class="muted">Không có thông báo.</p>';
+
+        list.querySelectorAll('.notif-item.unread').forEach(el => {
+            el.addEventListener('click', async () => {
+                await api(`/api/notifications/${el.dataset.id}/read`, { method: 'POST' });
+                el.classList.remove('unread');
+                loadNotifications();
+            });
+        });
+    }
+    catch(e){
+    }
+}
+
+function toggleNotifications(){
+    const panel = document.getElementById('notifPanel');
+    if(!panel) return;
+    panel.classList.toggle('hidden');
+    if(!panel.classList.contains('hidden')){
+        loadNotifications();
+    }
+}
+
+async function markAllNotifsRead(){
+    try{
+        await api('/api/notifications/read-all', { method: 'POST' });
+        loadNotifications();
+    }
+    catch(e){}
+}
+
+const _origInit = initializePage;
+initializePage = async function(){
+    await _origInit();
+    if(currentUser?.role === 'student'){
+        loadNotifications();
+        if(!document.getElementById('notifStyles')){
+            const style = document.createElement('style');
+            style.id = 'notifStyles';
+            style.textContent = `
+                .notif-btn { position:relative; background:none; border:none; font-size:1.2rem; cursor:pointer; padding:4px 8px; }
+                .notif-badge { position:absolute; top:-2px; right:0; background:#e53935; color:#fff; border-radius:10px; font-size:0.65rem; padding:1px 5px; min-width:16px; }
+                .notif-panel { position:fixed; top:70px; right:12px; width:320px; max-height:400px; overflow:auto; background:#fff; border:1px solid #ddd; border-radius:8px; box-shadow:0 4px 16px rgba(0,0,0,.15); z-index:1000; padding:12px; }
+                .notif-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+                .notif-item { padding:8px; border-bottom:1px solid #eee; cursor:pointer; }
+                .notif-item.unread { background:#f0f7ff; }
+                .notif-item p { margin:4px 0; font-size:0.9em; }
+                .notif-item small { color:#888; font-size:0.8em; }
+            `;
+            document.head.appendChild(style);
+        }
+    }
+};
 
 window.ctuReady = initializePage();

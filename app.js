@@ -1012,10 +1012,26 @@ app.get('/api/teacher-schedule', async (req, res) => {
     };
     const classes = await database.listClassSections(filters);
 
-    // Flatten for old search UI (one row per session)
+    const buildingFilter = String(req.query.building || '').trim().toLowerCase();
+    const sessionFilter = String(req.query.session || '').trim().toLowerCase();
+
     const schedules = [];
     for(const cls of classes){
         for(const sch of cls.schedules){
+            // Lấy mã tòa từ phòng dạng 204/d1
+            const roomParts = String(sch.room || '').toLowerCase().split('/');
+            const building = roomParts.length === 2 ? roomParts[1].trim() : '';
+
+            if(buildingFilter && building !== buildingFilter){
+                continue;
+            }
+            if(sessionFilter === 'morning' && Number(sch.startPeriod) > 5){
+                continue;
+            }
+            if(sessionFilter === 'afternoon' && Number(sch.startPeriod) < 6){
+                continue;
+            }
+
             schedules.push({
                 id: cls.id,
                 classCode: cls.classCode,
@@ -1030,7 +1046,7 @@ app.get('/api/teacher-schedule', async (req, res) => {
                 duration: sch.duration,
                 room: sch.room,
                 routeNode: sch.routeNode,
-                building: ''
+                building
             });
         }
     }

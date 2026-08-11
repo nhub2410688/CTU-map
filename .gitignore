@@ -1,0 +1,7 @@
+node_modules/
+.env
+server.out.log
+server.err.log
+npm-debug.log*
+data/db.json
+storage/uploads/

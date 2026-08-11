@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thời khóa biểu - CTU MAP</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body id="top">
+    <header id="siteHeader"></header>
+
+    <main class="page-shell">
+        <h1 class="page-title">Thời khóa biểu sinh viên</h1>
+        <div class="stack">
+            <section class="panel">
+                <h2 id="scheduleFormTitle">Thêm lớp học</h2>
+                <form id="scheduleForm" onsubmit="saveSchedule(event)">
+                    <!-- Ô lọc môn học -->
+                    <div class="field">
+                        <label for="subjectFilter">Lọc theo môn học</label>
+                        <input id="subjectFilter" list="subjectList" placeholder="Gõ mã hoặc tên môn học...">
+                        <datalist id="subjectList"></datalist>
+                    </div>
+
+                    <!-- Dropdown chọn lớp (sẽ được lọc theo môn) -->
+                    <div class="field">
+                        <label for="teacherScheduleId">Chọn lớp học</label>
+                        <select id="teacherScheduleId" required>
+                            <option value="">Chọn lớp học</option>
+                        </select>
+                    </div>
+
+                    <div class="actions">
+                        <button id="scheduleSubmit" type="submit">Thêm vào TKB</button>
+                        <button id="scheduleCancel" class="secondary hidden" type="button" onclick="cancelScheduleEdit()">Hủy sửa</button>
+                    </div>
+                </form>
+                <p class="muted">Gõ mã/tên môn để lọc lớp, sau đó chọn lớp của giảng viên muốn học.</p>
+                <div id="scheduleStatus" class="status"></div>
+            </section>
+
+            <section class="panel">
+                <h2>Thời khóa biểu</h2>
+                <div id="scheduleTable" class="table-wrap"></div>
+            </section>
+
+            <!-- <section class="panel">
+                <h2>Dẫn đường theo ngày học</h2>
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="routeDay">Thứ</label>
+                        <select id="routeDay">
+                            <option value="2">Thứ 2</option>
+                            <option value="3">Thứ 3</option>
+                            <option value="4">Thứ 4</option>
+                            <option value="5">Thứ 5</option>
+                            <option value="6">Thứ 6</option>
+                            <option value="7">Thứ 7</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="routeStart">Bắt đầu từ</label>
+                        <input id="routeStart" value="cổng a">
+                    </div>
+                </div>
+                <div class="actions">
+                    <button type="button" onclick="routeSchedule()">Tạo chỉ dẫn trong ngày</button>
+                </div>
+                <div id="scheduleRouteResult" class="result"></div>
+            </section>-->
+        </div>
+    </main>
+
+    <div id="siteFooter"></div>
+    <script src="js/common.js"></script>
+    <script src="js/schedule.js"></script>
+</body>
+</html>

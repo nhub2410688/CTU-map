@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bản đồ - CTU MAP</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body id="top">
+    <header id="siteHeader"></header>
+
+    <main class="page-shell">
+        <h1 class="page-title">Bản đồ Khu II - Đại học Cần Thơ</h1>
+        <div id="mapTabs" class="section-tabs">
+            <button class="active" type="button" data-tab="route" onclick="showMapTab('route')">
+                Tìm đường
+            </button>
+            <button type="button" data-tab="room" onclick="showMapTab('room')">
+                Tìm phòng / Tòa nhà
+            </button>
+            <button type="button" data-tab="tool" onclick="showMapTab('tool')">
+                Tool lấy tọa độ
+            </button>
+        </div>
+        <div class="layout-map">
+            <div class="stack">
+                <section class="panel" data-map-tab="route">
+                    <h2>Tìm đường</h2>
+                    <div class="field">
+                        <label for="start">Điểm xuất phát</label>
+                        <input id="start" placeholder="Ví dụ: cổng a">
+                    </div>
+                    <div class="field">
+                        <label for="end">Điểm đến</label>
+                        <input id="end" placeholder="Ví dụ: 105/A3 hoặc D1">
+                    </div>
+                    <div class="actions">
+                        <button type="button" onclick="findPath()">Tìm đường</button>
+                    </div>
+                    <div id="result" class="result"></div>
+                </section>
+
+                <section class="panel hidden" data-map-tab="room">
+                    <h2>Tìm phòng, tòa nhà, bãi xe</h2>
+                    <div class="field">
+                        <label for="roomInput">Địa điểm</label>
+                        <input id="roomInput" placeholder="Ví dụ: 204/D1, A3">
+                    </div>
+                    <div class="actions">
+                        <button type="button" onclick="findRoom()">Tìm kiếm</button>
+                    </div>
+                    <div id="roomResult" class="result"></div>
+                </section>
+
+                <section class="panel hidden" data-map-tab="tool">
+                    <h2>Tool lấy tọa độ node</h2>
+                    <p class="muted">Dành cho lập trình viên cập nhật dữ liệu bản đồ.</p>
+                    <div class="field">
+                        <label for="nodeName">Tên node</label>
+                        <input id="nodeName" placeholder="n9">
+                    </div>
+                    <div class="actions">
+                        <button class="secondary" type="button" onclick="toggleCoordinateMode()">Bật / tắt lấy tọa độ</button>
+                        <button class="secondary" type="button" onclick="toggleGraphDebug()">Hiện / ẩn node và cung</button>
+                    </div>
+                    <div id="coordInfo" class="result"></div>
+                </section>
+            </div>
+
+            <section class="panel map-panel">
+                <div class="map-toolbar">
+                    <strong>Bản đồ</strong>
+                    <div class="actions">
+                        <button class="icon" type="button" title="Phóng to" onclick="zoomMap(.1)">+</button>
+                        <button class="icon secondary" type="button" title="Thu nhỏ" onclick="zoomMap(-.1)">−</button>
+                        <button class="secondary" type="button" onclick="resetMap()">100%</button>
+                    </div>
+                </div>
+                <div id="map-viewport">
+                    <div id="map-content">
+                        <img id="map" src="img/Sơ đồ khuII.png" alt="Sơ đồ Khu II">
+                        <svg id="overlay" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
+                    </div>
+                    <div class="map-legend" aria-label="Chú giải bản đồ">
+                        <span><i class="legend-shape legend-start"></i>Điểm đầu</span>
+                        <span><i class="legend-shape legend-end"></i>Điểm cuối</span>
+                        <span><i class="legend-shape legend-parking"></i>nhà xe</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div id="siteFooter"></div>
+    <script src="js/common.js"></script>
+    <script src="js/map.js"></script>
+</body>
+</html>

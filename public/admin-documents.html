@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý tài liệu - CTU MAP</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body id="top">
+    <header id="siteHeader"></header>
+
+    <main class="page-shell">
+        <h1 class="page-title">Quản lý tài liệu học tập</h1>
+        <div id="documentTabs" class="section-tabs">
+            <button class="active" type="button" data-tab="pending" onclick="showDocumentTab('pending')">
+                Tài liệu chờ duyệt
+            </button>
+            <button type="button" data-tab="approved" onclick="showDocumentTab('approved')">
+                Tài liệu đã duyệt
+            </button>
+        </div>
+        <div class="stack">
+            <section class="panel" data-document-tab="pending">
+                <h2>Tài liệu chờ duyệt</h2>
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="pendingSearch">Từ khóa</label>
+                        <input id="pendingSearch" placeholder="Tên tài liệu, sinh viên, môn học...">
+                    </div>
+                    <div class="field">
+                        <label for="pendingSubjectFilter">Môn học</label>
+                        <select id="pendingSubjectFilter">
+                            <option value="">Tất cả môn học</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="pendingTeacherFilter">Giảng viên</label>
+                        <select id="pendingTeacherFilter">
+                            <option value="">Tất cả giảng viên</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="actions">
+                    <button type="button" onclick="loadPendingDocuments()">Lọc tài liệu chờ duyệt</button>
+                    <button class="secondary" type="button" onclick="clearPendingFilters()">Xóa lọc</button>
+                </div>
+                <hr>
+                <div id="pendingDocumentStatus" class="status"></div>
+                <div id="pendingDocumentTable" class="table-wrap"></div>
+            </section>
+
+            <section class="panel hidden" data-document-tab="approved">
+                <h2>Tài liệu đã duyệt</h2>
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="approvedSearch">Từ khóa</label>
+                        <input id="approvedSearch" placeholder="Tên tài liệu, môn học, giảng viên...">
+                    </div>
+                    <div class="field">
+                        <label for="approvedSubjectFilter">Môn học</label>
+                        <select id="approvedSubjectFilter">
+                            <option value="">Tất cả môn học</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="approvedTeacherFilter">Giảng viên</label>
+                        <select id="approvedTeacherFilter">
+                            <option value="">Tất cả giảng viên</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="actions">
+                    <button type="button" onclick="loadApprovedDocuments()">Tìm tài liệu đã duyệt</button>
+                    <button class="secondary" type="button" onclick="clearApprovedFilters()">Xóa lọc</button>
+                </div>
+                <hr>
+                <div id="approvedDocumentStatus" class="status"></div>
+                <div id="approvedDocumentTable" class="table-wrap"></div>
+            </section>
+        </div>
+    </main>
+
+    <div id="siteFooter"></div>
+    <script src="js/common.js"></script>
+    <script src="js/admin-documents.js"></script>
+</body>
+</html>

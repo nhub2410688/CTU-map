@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tài liệu học tập - CTU MAP</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body id="top">
+    <header id="siteHeader"></header>
+
+    <main class="page-shell">
+        <h1 class="page-title">Chia sẻ tài liệu học tập</h1>
+        <div class="stack">
+            <section class="panel">
+                <h2>Gửi tài liệu mới</h2>
+                <form id="documentForm" onsubmit="uploadDocument(event)">
+                    <div class="form-grid">
+                        <div class="field">
+                            <label for="documentTitle">Tiêu đề</label>
+                            <input id="documentTitle" required>
+                        </div>
+                        <div class="field">
+                            <label for="documentFile">File tài liệu</label>
+                            <input id="documentFile" type="file" required>
+                        </div>
+                        <div class="field">
+                            <label for="documentSubject">Môn học</label>
+                            <select id="documentSubject" required>
+                                <option value="">Chọn môn học</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="documentTeacher">Giảng viên nếu có</label>
+                            <select id="documentTeacher">
+                                <option value="">Không chọn giảng viên</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="documentDescription">Mô tả</label>
+                        <input id="documentDescription" placeholder="Ví dụ: slide chương 1, đề ôn tập giữa kỳ...">
+                    </div>
+                    <div class="actions">
+                        <button type="submit">Gửi chờ duyệt</button>
+                    </div>
+                    <div id="documentUploadStatus" class="status"></div>
+                </form>
+            </section>
+
+            <section class="panel">
+                <h2>Tìm tài liệu được chia sẻ</h2>
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="documentSearch">Từ khóa</label>
+                        <input id="documentSearch" placeholder="Tên tài liệu, môn học, giảng viên...">
+                    </div>
+                    <div class="field">
+                        <label for="filterSubject">Môn học</label>
+                        <select id="filterSubject">
+                            <option value="">Tất cả môn học</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="filterTeacher">Giảng viên</label>
+                        <select id="filterTeacher">
+                            <option value="">Tất cả giảng viên</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="actions">
+                    <button type="button" onclick="loadDocuments()">Tìm tài liệu</button>
+                    <button class="secondary" type="button" onclick="clearDocumentFilters()">Xóa lọc</button>
+                </div>
+                <div id="documentListStatus" class="status"></div>
+                <div id="documentTable" class="table-wrap"></div>
+            </section>
+        </div>
+    </main>
+
+    <div id="siteFooter"></div>
+    <script src="js/common.js"></script>
+    <script src="js/documents.js"></script>
+</body>
+</html>

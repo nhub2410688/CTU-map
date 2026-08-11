@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - CTU MAP</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body id="top">
+    <header id="siteHeader"></header>
+
+    <main class="page-shell">
+        <h1 class="page-title">Tài khoản CTU MAP</h1>
+        <section class="panel auth-wrap">
+            <div class="tabs">
+                <button id="loginTab" class="active" type="button" onclick="showAuthTab('login')">Đăng nhập</button>
+                <button id="registerTab" type="button" onclick="showAuthTab('register')">Đăng ký sinh viên</button>
+            </div>
+
+            <form id="loginBox" onsubmit="login(event)">
+                <div class="field">
+                    <label for="loginId">MSSV hoặc tên admin</label>
+                    <input id="loginId" autocomplete="username" placeholder="Bxxxxxxx hoặc admin" required>
+                </div>
+                <div class="field">
+                    <label for="loginPassword">Mật khẩu</label>
+                    <input id="loginPassword" type="password" autocomplete="current-password" required>
+                </div>
+                <div class="credential-note">
+                    <strong>Tài khoản tester quản trị:</strong>
+                    tên đăng nhập <code id="demoAdminUsername">admin</code>,
+                    mật khẩu <code id="demoAdminPassword">CTUMap@2026</code>.
+                </div>
+                <div class="actions">
+                    <button type="submit">Đăng nhập</button>
+                    <button class="secondary" type="button" onclick="ctuLogin()">Kết nối HTQL CTU</button>
+                </div>
+            </form>
+
+            <form id="registerBox" class="hidden" onsubmit="register(event)">
+                <div class="field">
+                    <label for="registerStudentId">Mã số sinh viên</label>
+                    <input id="registerStudentId" pattern="[Bb][0-9]{7}" placeholder="Bxxxxxxx" required>
+                </div>
+                <div class="field">
+                    <label for="registerPassword">Mật khẩu tự tạo</label>
+                    <input id="registerPassword" type="password" minlength="6" autocomplete="new-password" required>
+                </div>
+                <div class="actions">
+                    <button type="submit">Đăng ký</button>
+                </div>
+            </form>
+
+            <div id="authStatus" class="status"></div>
+        </section>
+    </main>
+
+    <div id="siteFooter"></div>
+    <script src="js/common.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

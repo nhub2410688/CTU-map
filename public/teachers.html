@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch giảng viên - CTU MAP</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body id="top">
+    <header id="siteHeader"></header>
+
+    <main class="page-shell">
+        <h1 class="page-title">Lịch giảng dạy và lớp học</h1>
+        <div id="teacherTabs" class="section-tabs hidden">
+            <button class="active" type="button" data-tab="subjects" onclick="showTeacherTab('subjects')">Danh mục môn học</button>
+            <button type="button" data-tab="teachers" onclick="showTeacherTab('teachers')">Danh sách giảng viên</button>
+            <button type="button" data-tab="classes" onclick="showTeacherTab('classes')">Danh sách lớp học</button>
+        </div>
+        <div class="stack">
+            <section id="subjectAdminPanel" class="panel hidden" data-teacher-tab="subjects">
+                <h2 id="subjectFormTitle">Danh mục môn học</h2>
+                <form id="subjectForm" onsubmit="saveSubject(event)">
+                    <div class="form-grid">
+                        <div class="field">
+                            <label for="subjectCode">Mã môn học</label>
+                            <input id="subjectCode" placeholder="CT101" required>
+                        </div>
+                        <div class="field">
+                            <label for="subjectName">Tên môn học</label>
+                            <input id="subjectName" required>
+                        </div>
+                    </div>
+
+                    <div class="actions-bar">
+                        <div class="actions-left">
+                            <button id="subjectSubmit" type="submit">Thêm môn học</button>
+                            <button id="subjectCancel" class="secondary hidden" type="button" onclick="cancelSubjectEdit()">Hủy sửa</button>
+                        </div>
+                        <div class="field filter-field">
+                            <input id="subjectSearch" placeholder="Lọc: mã hoặc tên môn học...">
+                        </div>
+                    </div>
+                    <br>
+                </form>
+
+                <div id="subjectStatus" class="status"></div>
+                <div id="subjectTable" class="table-wrap"></div>
+            </section>
+
+            <section id="teacherAdminPanel" class="panel hidden" data-teacher-tab="teachers">
+                <h2 id="teacherFormTitle">Danh sách giảng viên</h2>
+                <form id="teacherForm" onsubmit="saveTeacher(event)">
+                    <div class="form-grid">
+                        <div class="field">
+                            <label for="teacherCode">Mã giảng viên</label>
+                            <input id="teacherCode" placeholder="GV001" required>
+                        </div>
+                        <div class="field">
+                            <label for="teacherName">Tên giảng viên</label>
+                            <input id="teacherName" required>
+                        </div>
+                    </div>
+
+                    <div class="actions-bar">
+                        <div class="actions-left">
+                            <button id="teacherSubmit" type="submit">Thêm giảng viên</button>
+                            <button id="teacherCancel" class="secondary hidden" type="button" onclick="cancelTeacherEdit()">Hủy sửa</button>
+                        </div>
+
+                        <div class="field filter-field">
+                            <input id="teacherSearch" placeholder="Lọc: mã hoặc tên giảng viên...">
+                        </div>
+                    </div>
+                    <br>
+                </form>
+
+                <div id="teacherStatus" class="status"></div>
+                <div id="teacherListTable" class="table-wrap"></div>
+            </section>
+
+            <section id="classAdminPanel" class="panel hidden" data-teacher-tab="classes">
+                <h2 id="classFormTitle">Thêm lớp học</h2>
+                <form id="classForm" onsubmit="saveClass(event)">
+                    <div class="form-grid">
+                        <div class="field">
+                            <label for="classTeacher">Giảng viên</label>
+                            <select id="classTeacher" required>
+                                <option value="">Chọn giảng viên</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="classSubject">Môn học</label>
+                            <select id="classSubject" required>
+                                <option value="">Chọn môn học</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="classDay">Thứ</label>
+                            <select id="classDay">
+                                <option value="2">Thứ 2</option>
+                                <option value="3">Thứ 3</option>
+                                <option value="4">Thứ 4</option>
+                                <option value="5">Thứ 5</option>
+                                <option value="6">Thứ 6</option>
+                                <option value="7">Thứ 7</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="classPeriod">Tiết bắt đầu</label>
+                            <input id="classPeriod" type="number" min="1" max="9" value="1" required>
+                        </div>
+                        <div class="field">
+                            <label for="classDuration">Số tiết</label>
+                            <input id="classDuration" type="number" min="1" max="5" value="1" required>
+                        </div>
+                        <div class="field">
+                            <label for="classRoom">Phòng học</label>
+                            <input id="classRoom" placeholder="204/D1" required>
+                        </div>
+                    </div>
+
+                    <!-- Nút thêm + ô lọc nằm cùng hàng -->
+                    <div class="actions-bar">
+                        <div class="actions-left">
+                            <button id="classSubmit" type="submit">Thêm lớp học</button>
+                            <button id="classCancel" class="secondary hidden" type="button" onclick="cancelClassEdit()">Hủy sửa</button>
+                        </div>
+
+                        <div class="field filter-field">
+                            <input id="classSearch" placeholder="Lọc: mã lớp, tên môn học,...">
+                        </div>
+                    </div>
+
+                    <div id="classStatus" class="status"></div>
+                </form>
+            </section>
+
+            <section id="classListPanel" class="panel" data-teacher-tab="classes">
+                <h2>Danh sách lớp học</h2>
+                <div id="classTable" class="table-wrap"></div>
+            </section>
+        </div>
+    </main>
+
+    <div id="siteFooter"></div>
+    <script src="js/common.js"></script>
+    <script src="js/teachers.js"></script>
+</body>
+</html>

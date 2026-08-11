@@ -4,60 +4,132 @@ let teacherItems = [];
 let editingClassId = '';
 let editingSubjectId = '';
 let editingTeacherId = '';
-
-function periodText(item){
-    const endPeriod = Number(item.period) + Number(item.duration) - 1;
-    return `${item.period}-${endPeriod}`;
-}
+let sessionRowCount = 0;
 
 function showTeacherTab(tabName){
     document.querySelectorAll('[data-teacher-tab]').forEach(panel => {
         panel.classList.toggle('hidden', panel.dataset.teacherTab !== tabName);
     });
-
     document.querySelectorAll('#teacherTabs button').forEach(button => {
         button.classList.toggle('active', button.dataset.tab === tabName);
     });
 }
 
-function renderSubjectOptions(){
-    const select = document.getElementById('classSubject');
-    const selectedValue = select.value;
+function periodText(start, duration){
+    const end = Number(start) + Number(duration) - 1;
+    return `${start}-${end}`;
+}
 
-    select.innerHTML = `
-        <option value="">Chọn môn học</option>
-        ${subjectItems.map(item => `
-            <option value="${item.id}">${escapeHtml(item.code)} - ${escapeHtml(item.name)}</option>
-        `).join('')}
-    `;
+function setupSearchable(inputId, hiddenId, listId, items, getLabel, getValue){
+    const input = document.getElementById(inputId);
+    const hidden = document.getElementById(hiddenId);
+    const list = document.getElementById(listId);
+    if(!input || !hidden || !list) return;
 
-    if(subjectItems.some(item => item.id === selectedValue)){
-        select.value = selectedValue;
+    function render(filter = ''){
+        const q = filter.trim().toLowerCase();
+        const filtered = !q
+            ? items
+            : items.filter(item => getLabel(item).toLowerCase().includes(q));
+
+        list.innerHTML = filtered.slice(0, 30).map(item =>
+            `<div data-value="${getValue(item)}">${escapeHtml(getLabel(item))}</div>`
+        ).join('');
+        list.classList.toggle('show', filtered.length > 0 && document.activeElement === input);
+    }
+
+    input.addEventListener('focus', () => render(input.value));
+    input.addEventListener('input', () => {
+        hidden.value = '';
+        render(input.value);
+    });
+    input.addEventListener('blur', () => {
+        setTimeout(() => list.classList.remove('show'), 150);
+    });
+
+    list.addEventListener('mousedown', (e) => {
+        const div = e.target.closest('div[data-value]');
+        if(!div) return;
+        hidden.value = div.dataset.value;
+        input.value = div.textContent;
+        list.classList.remove('show');
+    });
+}
+
+function setSearchableValue(inputId, hiddenId, items, id, getLabel, getValue){
+    const input = document.getElementById(inputId);
+    const hidden = document.getElementById(hiddenId);
+    const item = items.find(i => getValue(i) === id);
+    if(item){
+        hidden.value = id;
+        input.value = getLabel(item);
+    } else {
+        hidden.value = '';
+        input.value = '';
     }
 }
 
-function renderTeacherOptions(){
-    const select = document.getElementById('classTeacher');
-    const selectedValue = select.value;
-
-    select.innerHTML = `
-        <option value="">Chọn giảng viên</option>
-        ${teacherItems.map(item => `
-            <option value="${item.id}">${escapeHtml(item.code)} - ${escapeHtml(item.name)}</option>
-        `).join('')}
+function addSessionRow(data = {}){
+    sessionRowCount++;
+    const id = sessionRowCount;
+    const div = document.createElement('div');
+    div.className = 'session-row';
+    div.dataset.rowId = id;
+    div.innerHTML = `
+        <div class="field">
+            <label>Thứ</label>
+            <select class="sess-day">
+                <option value="2" ${data.day == 2 ? 'selected' : ''}>Thứ 2</option>
+                <option value="3" ${data.day == 3 ? 'selected' : ''}>Thứ 3</option>
+                <option value="4" ${data.day == 4 ? 'selected' : ''}>Thứ 4</option>
+                <option value="5" ${data.day == 5 ? 'selected' : ''}>Thứ 5</option>
+                <option value="6" ${data.day == 6 ? 'selected' : ''}>Thứ 6</option>
+                <option value="7" ${data.day == 7 ? 'selected' : ''}>Thứ 7</option>
+            </select>
+        </div>
+        <div class="field">
+            <label>Tiết bắt đầu</label>
+            <input class="sess-period" type="number" min="1" max="9" value="${data.startPeriod || 1}" required>
+        </div>
+        <div class="field">
+            <label>Số tiết</label>
+            <input class="sess-duration" type="number" min="1" max="5" value="${data.duration || 1}" required>
+        </div>
+        <div class="field">
+            <label>Phòng học</label>
+            <input class="sess-room" placeholder="204/D1" value="${escapeHtml(data.room || '')}" required>
+        </div>
+        <button type="button" class="small danger" onclick="this.closest('.session-row').remove()">Xóa</button>
     `;
+    document.getElementById('sessionsList').appendChild(div);
+}
 
-    if(teacherItems.some(item => item.id === selectedValue)){
-        select.value = selectedValue;
-    }
+function getSessionsFromForm(){
+    const rows = document.querySelectorAll('#sessionsList .session-row');
+    return Array.from(rows).map(row => ({
+        day: row.querySelector('.sess-day').value,
+        startPeriod: row.querySelector('.sess-period').value,
+        duration: row.querySelector('.sess-duration').value,
+        room: row.querySelector('.sess-room').value
+    }));
+}
+
+function clearSessions(){
+    document.getElementById('sessionsList').innerHTML = '';
+    sessionRowCount = 0;
 }
 
 async function loadSubjects(){
     try{
         const data = await api('/api/subjects');
         subjectItems = data.subjects;
-        renderSubjectOptions();
-        filterSubjects();   // render bảng ở đây
+        setupSearchable(
+            'classSubjectInput', 'classSubject', 'classSubjectList',
+            subjectItems,
+            item => `${item.code} - ${item.name}`,
+            item => item.id
+        );
+        filterSubjects();
     }
     catch(error){
         setStatus('subjectStatus', error.message, true);
@@ -71,13 +143,12 @@ async function saveSubject(event){
             ? `/api/subjects/${encodeURIComponent(editingSubjectId)}`
             : '/api/subjects';
         const data = await api(url, {
-            method:editingSubjectId ? 'PUT' : 'POST',
-            body:JSON.stringify({
-                code:document.getElementById('subjectCode').value,
-                name:document.getElementById('subjectName').value
+            method: editingSubjectId ? 'PUT' : 'POST',
+            body: JSON.stringify({
+                code: document.getElementById('subjectCode').value,
+                name: document.getElementById('subjectName').value
             })
         });
-
         setStatus('subjectStatus', data.message);
         cancelSubjectEdit();
         await loadSubjects();
@@ -89,11 +160,8 @@ async function saveSubject(event){
 }
 
 function editSubject(id){
-    const item = subjectItems.find(subject => subject.id === id);
-    if(!item){
-        return;
-    }
-
+    const item = subjectItems.find(s => s.id === id);
+    if(!item) return;
     editingSubjectId = id;
     document.getElementById('subjectCode').value = item.code;
     document.getElementById('subjectName').value = item.name;
@@ -111,14 +179,9 @@ function cancelSubjectEdit(){
 }
 
 async function deleteSubject(id){
-    if(!window.confirm('Xóa môn học này khỏi danh mục?')){
-        return;
-    }
-
+    if(!window.confirm('Xóa môn học này khỏi danh mục?')) return;
     try{
-        const data = await api(`/api/subjects/${encodeURIComponent(id)}`, {
-            method:'DELETE'
-        });
+        const data = await api(`/api/subjects/${encodeURIComponent(id)}`, { method: 'DELETE' });
         setStatus('subjectStatus', data.message);
         await loadSubjects();
     }
@@ -127,248 +190,6 @@ async function deleteSubject(id){
     }
 }
 
-async function loadTeachers(){
-    try{
-        const data = await api('/api/teachers');
-        teacherItems = data.teachers;
-        renderTeacherOptions();
-        filterTeachers();   // render bảng ở đây
-    }
-    catch(error){
-        setStatus('teacherStatus', error.message, true);
-    }
-}
-
-async function saveTeacher(event){
-    event.preventDefault();
-    try{
-        const url = editingTeacherId
-            ? `/api/teachers/${encodeURIComponent(editingTeacherId)}`
-            : '/api/teachers';
-        const data = await api(url, {
-            method:editingTeacherId ? 'PUT' : 'POST',
-            body:JSON.stringify({
-                code:document.getElementById('teacherCode').value,
-                name:document.getElementById('teacherName').value
-            })
-        });
-
-        setStatus('teacherStatus', data.message);
-        cancelTeacherEdit();
-        await loadTeachers();
-        await loadClasses();
-    }
-    catch(error){
-        setStatus('teacherStatus', error.message, true);
-    }
-}
-
-function editTeacher(id){
-    const item = teacherItems.find(teacher => teacher.id === id);
-    if(!item){
-        return;
-    }
-
-    editingTeacherId = id;
-    document.getElementById('teacherCode').value = item.code;
-    document.getElementById('teacherName').value = item.name;
-    document.getElementById('teacherFormTitle').textContent = 'Chỉnh sửa giảng viên';
-    document.getElementById('teacherSubmit').textContent = 'Lưu thay đổi';
-    document.getElementById('teacherCancel').classList.remove('hidden');
-}
-
-function cancelTeacherEdit(){
-    editingTeacherId = '';
-    document.getElementById('teacherForm').reset();
-    document.getElementById('teacherFormTitle').textContent = 'Danh sách giảng viên';
-    document.getElementById('teacherSubmit').textContent = 'Thêm giảng viên';
-    document.getElementById('teacherCancel').classList.add('hidden');
-}
-
-async function deleteTeacher(id){
-    if(!window.confirm('Xóa giảng viên này khỏi danh sách?')){
-        return;
-    }
-
-    try{
-        const data = await api(`/api/teachers/${encodeURIComponent(id)}`, {
-            method:'DELETE'
-        });
-        setStatus('teacherStatus', data.message);
-        await loadTeachers();
-    }
-    catch(error){
-        setStatus('teacherStatus', error.message, true);
-    }
-}
-
-function getClassPayload(){
-    return {
-        teacherId:document.getElementById('classTeacher').value,
-        subjectId:document.getElementById('classSubject').value,
-        day:document.getElementById('classDay').value,
-        period:document.getElementById('classPeriod').value,
-        duration:document.getElementById('classDuration').value,
-        room:document.getElementById('classRoom').value
-    };
-}
-
-async function saveClass(event){
-    event.preventDefault();
-    try{
-        const url = editingClassId
-            ? `/api/teacher-schedule/${encodeURIComponent(editingClassId)}`
-            : '/api/teacher-schedule';
-        const data = await api(url, {
-            method:editingClassId ? 'PUT' : 'POST',
-            body:JSON.stringify(getClassPayload())
-        });
-
-        setStatus('classStatus', data.message);
-        cancelClassEdit();
-        await loadSubjects();
-        await loadTeachers();
-        await loadClasses();
-    }
-    catch(error){
-        setStatus('classStatus', error.message, true);
-    }
-}
-
-function buildClassQuery(){
-    const params = new URLSearchParams();
-    const q = document.getElementById('classSearch')?.value?.trim() || '';
-    
-    if(q){
-        params.set('q', q);
-    }
-    return params.toString();
-}
-
-async function loadClasses(){
-    try{
-        const query = buildClassQuery();
-        const data = await api(`/api/teacher-schedule${query ? `?${query}` : ''}`);
-        classItems = data.schedules;
-        const canEdit = currentUser?.role === 'admin';
-
-        const rows = classItems.map(item => `
-            <tr>
-                <td data-label="Mã lớp">${escapeHtml(item.classCode || '')}</td>
-                <td data-label="Môn học">${escapeHtml(item.subject)}</td>
-                <td data-label="Mã GV">${escapeHtml(item.teacherCode)}</td>
-                <td data-label="Tên GV">${escapeHtml(item.teacherName)}</td>
-                <td data-label="Thứ">Thứ ${item.day}</td>
-                <td data-label="Tiết">${periodText(item)}</td>
-                <td data-label="Phòng">${escapeHtml(item.room)}</td>
-                ${canEdit ? `
-                    <td data-label="Tìm phòng">
-                        <a class="button small" href="index.html?room=${encodeURIComponent(item.room)}">Tìm phòng</a>
-                    </td>
-                    <td data-label="Cập nhật">
-                        <button class="small secondary" type="button" onclick="editClass('${item.id}')">Cập nhật</button>
-                    </td>
-                    <td data-label="Xóa">
-                        <button class="small danger" type="button" onclick="deleteClass('${item.id}')">Xóa</button>
-                    </td>
-                ` : `
-                    <td data-label="Thao tác">
-                        <a class="button small" href="index.html?room=${encodeURIComponent(item.room)}">Tìm phòng</a>
-                    </td>
-                `}
-            </tr>
-        `).join('');
-
-        const actionHeader = canEdit
-            ? '<th>Tìm phòng</th><th>Cập nhật</th><th>Xóa</th>'
-            : '<th>Thao tác</th>';
-
-        const colspan = canEdit ? 10 : 8;
-
-        document.getElementById('classTable').innerHTML = `
-            <table>
-                <thead>
-                    <tr>
-                        <th>Mã lớp</th>
-                        <th>Môn học</th>
-                        <th>Mã GV</th>
-                        <th>Tên GV</th>
-                        <th>Thứ</th>
-                        <th>Tiết</th>
-                        <th>Phòng</th>
-                        ${actionHeader}
-                    </tr>
-                </thead>
-                <tbody>
-                    ${rows || `<tr><td colspan="${colspan}">Chưa có dữ liệu phù hợp.</td></tr>`}
-                </tbody>
-            </table>
-        `;
-    }
-    catch(error){
-        setStatus('classStatus', error.message, true);
-    }
-}
-
-function editClass(id){
-    const item = classItems.find(entry => entry.id === id);
-    if(!item){
-        return;
-    }
-
-    editingClassId = id;
-    document.getElementById('classTeacher').value = item.teacherId || '';
-    document.getElementById('classSubject').value = item.subjectId;
-    document.getElementById('classDay').value = item.day;
-    document.getElementById('classPeriod').value = item.period;
-    document.getElementById('classDuration').value = item.duration;
-    document.getElementById('classRoom').value = item.room;
-    document.getElementById('classFormTitle').textContent = 'Chỉnh sửa lớp học';
-    document.getElementById('classSubmit').textContent = 'Lưu thay đổi';
-    document.getElementById('classCancel').classList.remove('hidden');
-    document.getElementById('classAdminPanel').scrollIntoView({behavior:'smooth'});
-}
-
-function cancelClassEdit(){
-    editingClassId = '';
-    document.getElementById('classForm').reset();
-    document.getElementById('classPeriod').value = 1;
-    document.getElementById('classDuration').value = 1;
-    document.getElementById('classFormTitle').textContent = 'Thêm lớp học';
-    document.getElementById('classSubmit').textContent = 'Thêm lớp học';
-    document.getElementById('classCancel').classList.add('hidden');
-}
-
-async function deleteClass(id){
-    if(!window.confirm('Xóa lớp học này? Sinh viên đã chọn lớp cũng sẽ bị gỡ khỏi TKB.')){
-        return;
-    }
-
-    try{
-        const data = await api(`/api/teacher-schedule/${encodeURIComponent(id)}`, {
-            method:'DELETE'
-        });
-        setStatus('classStatus', data.message);
-        await loadSubjects();
-        await loadTeachers();
-        await loadClasses();
-    }
-    catch(error){
-        setStatus('classStatus', error.message, true);
-    }
-}
-
-function clearClassFilters(){
-    for(const id of ['classSearch', 'buildingFilter', 'dayFilter', 'sessionFilter']){
-        const element = document.getElementById(id);
-        if(element){
-            element.value = '';
-        }
-    }
-    loadClasses();
-}
-
-/** Lọc danh sách môn học */
 function filterSubjects(){
     const q = (document.getElementById('subjectSearch')?.value || '').trim().toLowerCase();
     const filtered = !q
@@ -409,7 +230,77 @@ function filterSubjects(){
     `;
 }
 
-/** Lọc danh sách giảng viên */
+async function loadTeachers(){
+    try{
+        const data = await api('/api/teachers');
+        teacherItems = data.teachers;
+        setupSearchable(
+            'classTeacherInput', 'classTeacher', 'classTeacherList',
+            teacherItems,
+            item => `${item.code} - ${item.name}`,
+            item => item.id
+        );
+        filterTeachers();
+    }
+    catch(error){
+        setStatus('teacherStatus', error.message, true);
+    }
+}
+
+async function saveTeacher(event){
+    event.preventDefault();
+    try{
+        const url = editingTeacherId
+            ? `/api/teachers/${encodeURIComponent(editingTeacherId)}`
+            : '/api/teachers';
+        const data = await api(url, {
+            method: editingTeacherId ? 'PUT' : 'POST',
+            body: JSON.stringify({
+                code: document.getElementById('teacherCode').value,
+                name: document.getElementById('teacherName').value
+            })
+        });
+        setStatus('teacherStatus', data.message);
+        cancelTeacherEdit();
+        await loadTeachers();
+        await loadClasses();
+    }
+    catch(error){
+        setStatus('teacherStatus', error.message, true);
+    }
+}
+
+function editTeacher(id){
+    const item = teacherItems.find(t => t.id === id);
+    if(!item) return;
+    editingTeacherId = id;
+    document.getElementById('teacherCode').value = item.code;
+    document.getElementById('teacherName').value = item.name;
+    document.getElementById('teacherFormTitle').textContent = 'Chỉnh sửa giảng viên';
+    document.getElementById('teacherSubmit').textContent = 'Lưu thay đổi';
+    document.getElementById('teacherCancel').classList.remove('hidden');
+}
+
+function cancelTeacherEdit(){
+    editingTeacherId = '';
+    document.getElementById('teacherForm').reset();
+    document.getElementById('teacherFormTitle').textContent = 'Danh sách giảng viên';
+    document.getElementById('teacherSubmit').textContent = 'Thêm giảng viên';
+    document.getElementById('teacherCancel').classList.add('hidden');
+}
+
+async function deleteTeacher(id){
+    if(!window.confirm('Xóa giảng viên này khỏi danh sách?')) return;
+    try{
+        const data = await api(`/api/teachers/${encodeURIComponent(id)}`, { method: 'DELETE' });
+        setStatus('teacherStatus', data.message);
+        await loadTeachers();
+    }
+    catch(error){
+        setStatus('teacherStatus', error.message, true);
+    }
+}
+
 function filterTeachers(){
     const q = (document.getElementById('teacherSearch')?.value || '').trim().toLowerCase();
     const filtered = !q
@@ -450,19 +341,162 @@ function filterTeachers(){
     `;
 }
 
-async function loadBuildings(){
+function getClassPayload(){
+    return {
+        classCode: document.getElementById('classCode').value,
+        teacherId: document.getElementById('classTeacher').value,
+        subjectId: document.getElementById('classSubject').value,
+        sessions: getSessionsFromForm()
+    };
+}
+
+async function saveClass(event){
+    event.preventDefault();
     try{
-        const data = await api('/api/buildings');
-        const select = document.getElementById('buildingFilter');
-        if(!select){
+        const payload = getClassPayload();
+        if(!payload.teacherId){
+            setStatus('classStatus', 'Vui lòng chọn giảng viên từ danh sách', true);
             return;
         }
-        select.innerHTML = `
-            <option value="">Tất cả tòa nhà</option>
-            ${data.buildings.map(item => `
-                <option value="${item.code}">${escapeHtml(item.name)}</option>
-            `).join('')}
+        if(!payload.subjectId){
+            setStatus('classStatus', 'Vui lòng chọn môn học từ danh sách', true);
+            return;
+        }
+        if(payload.sessions.length === 0){
+            setStatus('classStatus', 'Vui lòng thêm ít nhất 1 buổi học', true);
+            return;
+        }
+
+        const url = editingClassId
+            ? `/api/classes/${encodeURIComponent(editingClassId)}`
+            : '/api/classes';
+        const data = await api(url, {
+            method: editingClassId ? 'PUT' : 'POST',
+            body: JSON.stringify(payload)
+        });
+
+        setStatus('classStatus', data.message);
+        cancelClassEdit();
+        await loadSubjects();
+        await loadTeachers();
+        await loadClasses();
+    }
+    catch(error){
+        setStatus('classStatus', error.message, true);
+    }
+}
+
+async function loadClasses(){
+    try{
+        const q = document.getElementById('classSearch')?.value?.trim() || '';
+        const params = q ? `?q=${encodeURIComponent(q)}` : '';
+        const data = await api(`/api/classes${params}`);
+        classItems = data.classes || [];
+        const canEdit = currentUser?.role === 'admin';
+
+        const rows = classItems.map(item => {
+            const sessionsHtml = (item.schedules || []).map(s =>
+                `Thứ ${s.day}, tiết ${periodText(s.startPeriod, s.duration)}, ${escapeHtml(s.room)}`
+            ).join('<br>');
+
+            return `
+                <tr>
+                    <td data-label="Mã lớp">${escapeHtml(item.classCode || '')}</td>
+                    <td data-label="Môn học">${escapeHtml(item.subject)}</td>
+                    <td data-label="Giảng viên">${escapeHtml(item.teacherCode)} - ${escapeHtml(item.teacherName)}</td>
+                    <td data-label="Buổi học" class="sessions-cell">${sessionsHtml || '—'}</td>
+                    ${canEdit ? `
+                        <td data-label="Cập nhật">
+                            <button class="small secondary" type="button" onclick="editClass('${item.id}')">Cập nhật</button>
+                        </td>
+                        <td data-label="Xóa">
+                            <button class="small danger" type="button" onclick="deleteClass('${item.id}')">Xóa</button>
+                        </td>
+                    ` : `
+                        <td data-label="Thao tác">
+                            <a class="button small" href="index.html?room=${encodeURIComponent((item.schedules[0] || {}).room || '')}">Tìm phòng</a>
+                        </td>
+                    `}
+                </tr>
+            `;
+        }).join('');
+
+        const actionHeader = canEdit
+            ? '<th>Cập nhật</th><th>Xóa</th>'
+            : '<th>Thao tác</th>';
+        const colspan = canEdit ? 6 : 5;
+
+        document.getElementById('classTable').innerHTML = `
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã lớp</th>
+                        <th>Môn học</th>
+                        <th>Giảng viên</th>
+                        <th>Buổi học</th>
+                        ${actionHeader}
+                    </tr>
+                </thead>
+                <tbody>
+                    ${rows || `<tr><td colspan="${colspan}">Chưa có dữ liệu phù hợp.</td></tr>`}
+                </tbody>
+            </table>
         `;
+    }
+    catch(error){
+        setStatus('classStatus', error.message, true);
+    }
+}
+
+function editClass(id){
+    const item = classItems.find(c => c.id === id);
+    if(!item) return;
+
+    editingClassId = id;
+    document.getElementById('classCode').value = item.classCode || '';
+    setSearchableValue(
+        'classTeacherInput', 'classTeacher', teacherItems,
+        item.teacherId,
+        t => `${t.code} - ${t.name}`,
+        t => t.id
+    );
+    setSearchableValue(
+        'classSubjectInput', 'classSubject', subjectItems,
+        item.subjectId,
+        s => `${s.code} - ${s.name}`,
+        s => s.id
+    );
+
+    clearSessions();
+    (item.schedules || []).forEach(s => addSessionRow(s));
+    if((item.schedules || []).length === 0) addSessionRow();
+
+    document.getElementById('classFormTitle').textContent = 'Chỉnh sửa lớp học';
+    document.getElementById('classSubmit').textContent = 'Lưu thay đổi';
+    document.getElementById('classCancel').classList.remove('hidden');
+    document.getElementById('classAdminPanel').scrollIntoView({ behavior: 'smooth' });
+}
+
+function cancelClassEdit(){
+    editingClassId = '';
+    document.getElementById('classForm').reset();
+    document.getElementById('classTeacher').value = '';
+    document.getElementById('classSubject').value = '';
+    clearSessions();
+    addSessionRow();
+    document.getElementById('classFormTitle').textContent = 'Thêm lớp học';
+    document.getElementById('classSubmit').textContent = 'Thêm lớp học';
+    document.getElementById('classCancel').classList.add('hidden');
+}
+
+async function deleteClass(id){
+    if(!window.confirm('Xóa lớp học này? Sinh viên đã chọn lớp cũng sẽ bị gỡ khỏi TKB.')) return;
+    try{
+        const data = await api(`/api/classes/${encodeURIComponent(id)}`, { method: 'DELETE' });
+        setStatus('classStatus', data.message);
+        await loadSubjects();
+        await loadTeachers();
+        await loadClasses();
     }
     catch(error){
         setStatus('classStatus', error.message, true);
@@ -478,17 +512,12 @@ window.ctuReady.then(async () => {
         document.getElementById('classListPanel').classList.remove('hidden');
     }
 
-    // Lọc lớp học khi gõ
-    document.getElementById('classSearch')?.addEventListener('input', () => {
-        loadClasses();
-    });
-
-    // Lọc môn học & giảng viên (nếu chưa có)
+    document.getElementById('classSearch')?.addEventListener('input', () => loadClasses());
     document.getElementById('subjectSearch')?.addEventListener('input', filterSubjects);
     document.getElementById('teacherSearch')?.addEventListener('input', filterTeachers);
 
-    await loadBuildings();
     await loadSubjects();
     await loadTeachers();
     await loadClasses();
+    addSessionRow();
 });

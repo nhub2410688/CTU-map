@@ -5,8 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thời khóa biểu - CTU MAP</title>
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .sessions-cell { font-size: 0.9em; line-height: 1.4; }
+        .searchable-wrap { position: relative; }
+        .searchable-list {
+            position: absolute; z-index: 20; left: 0; right: 0;
+            max-height: 220px; overflow-y: auto;
+            background: #fff; border: 1px solid #ccc; border-radius: 4px;
+            display: none;
+        }
+        .searchable-list.show { display: block; }
+        .searchable-list div { padding: 6px 10px; cursor: pointer; }
+        .searchable-list div:hover { background: #e8f0fe; }
+    </style>
 </head>
-<body>
-    <p>Updated - see full version</p>
+<body id="top">
+    <header id="siteHeader"></header>
+
+    <main class="page-shell">
+        <h1 class="page-title">Thời khóa biểu sinh viên</h1>
+        <div class="stack">
+            <section class="panel">
+                <h2 id="scheduleFormTitle">Thêm lớp học</h2>
+                <form id="scheduleForm" onsubmit="saveSchedule(event)">
+                    <div class="field">
+                        <label for="classFilter">Lọc / tìm lớp học</label>
+                        <div class="searchable-wrap">
+                            <input id="classFilter" placeholder="Gõ mã lớp, môn học, giảng viên..." autocomplete="off">
+                            <input type="hidden" id="classSectionId">
+                            <div id="classFilterList" class="searchable-list"></div>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button id="scheduleSubmit" type="submit">Thêm vào TKB</button>
+                        <button id="scheduleCancel" class="secondary hidden" type="button" onclick="cancelScheduleEdit()">Hủy</button>
+                    </div>
+                </form>
+                <p class="muted">Gõ để tìm lớp, chọn lớp muốn học (đăng ký 1 lần = tất cả buổi của lớp).</p>
+                <div id="scheduleStatus" class="status"></div>
+            </section>
+
+            <section class="panel">
+                <h2>Thời khóa biểu</h2>
+                <div id="scheduleTable" class="table-wrap"></div>
+            </section>
+        </div>
+    </main>
+
+    <div id="siteFooter"></div>
+    <script src="js/common.js"></script>
+    <script src="js/schedule.js"></script>
 </body>
 </html>

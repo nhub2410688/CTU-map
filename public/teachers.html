@@ -5,6 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lịch giảng viên - CTU MAP</title>
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .session-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1.2fr auto;
+            gap: 8px;
+            align-items: end;
+            margin-bottom: 8px;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+        .session-row .field { margin: 0; }
+        .session-row label { font-size: 0.85em; }
+        #sessionsList { margin: 12px 0; }
+        .searchable-wrap { position: relative; }
+        .searchable-wrap input { width: 100%; }
+        .searchable-list {
+            position: absolute;
+            z-index: 20;
+            left: 0; right: 0;
+            max-height: 200px;
+            overflow-y: auto;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: none;
+        }
+        .searchable-list.show { display: block; }
+        .searchable-list div {
+            padding: 6px 10px;
+            cursor: pointer;
+        }
+        .searchable-list div:hover, .searchable-list div.active {
+            background: #e8f0fe;
+        }
+        .filter-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        .filter-row .field { flex: 1; min-width: 140px; }
+        .sessions-cell { font-size: 0.9em; line-height: 1.4; }
+    </style>
 </head>
 <body id="top">
     <header id="siteHeader"></header>
@@ -30,7 +74,6 @@
                             <input id="subjectName" required>
                         </div>
                     </div>
-
                     <div class="actions-bar">
                         <div class="actions-left">
                             <button id="subjectSubmit" type="submit">Thêm môn học</button>
@@ -42,7 +85,6 @@
                     </div>
                     <br>
                 </form>
-
                 <div id="subjectStatus" class="status"></div>
                 <div id="subjectTable" class="table-wrap"></div>
             </section>
@@ -60,20 +102,17 @@
                             <input id="teacherName" required>
                         </div>
                     </div>
-
                     <div class="actions-bar">
                         <div class="actions-left">
                             <button id="teacherSubmit" type="submit">Thêm giảng viên</button>
                             <button id="teacherCancel" class="secondary hidden" type="button" onclick="cancelTeacherEdit()">Hủy sửa</button>
                         </div>
-
                         <div class="field filter-field">
                             <input id="teacherSearch" placeholder="Lọc: mã hoặc tên giảng viên...">
                         </div>
                     </div>
                     <br>
                 </form>
-
                 <div id="teacherStatus" class="status"></div>
                 <div id="teacherListTable" class="table-wrap"></div>
             </section>
@@ -83,60 +122,48 @@
                 <form id="classForm" onsubmit="saveClass(event)">
                     <div class="form-grid">
                         <div class="field">
-                            <label for="classTeacher">Giảng viên</label>
-                            <select id="classTeacher" required>
-                                <option value="">Chọn giảng viên</option>
-                            </select>
+                            <label for="classCode">Mã lớp</label>
+                            <input id="classCode" placeholder="CT10101" required>
                         </div>
                         <div class="field">
-                            <label for="classSubject">Môn học</label>
-                            <select id="classSubject" required>
-                                <option value="">Chọn môn học</option>
-                            </select>
+                            <label for="classTeacherInput">Giảng viên</label>
+                            <div class="searchable-wrap">
+                                <input id="classTeacherInput" placeholder="Gõ mã hoặc tên giảng viên..." autocomplete="off" required>
+                                <input type="hidden" id="classTeacher">
+                                <div id="classTeacherList" class="searchable-list"></div>
+                            </div>
                         </div>
                         <div class="field">
-                            <label for="classDay">Thứ</label>
-                            <select id="classDay">
-                                <option value="2">Thứ 2</option>
-                                <option value="3">Thứ 3</option>
-                                <option value="4">Thứ 4</option>
-                                <option value="5">Thứ 5</option>
-                                <option value="6">Thứ 6</option>
-                                <option value="7">Thứ 7</option>
-                            </select>
-                        </div>
-                        <div class="field">
-                            <label for="classPeriod">Tiết bắt đầu</label>
-                            <input id="classPeriod" type="number" min="1" max="9" value="1" required>
-                        </div>
-                        <div class="field">
-                            <label for="classDuration">Số tiết</label>
-                            <input id="classDuration" type="number" min="1" max="5" value="1" required>
-                        </div>
-                        <div class="field">
-                            <label for="classRoom">Phòng học</label>
-                            <input id="classRoom" placeholder="204/D1" required>
+                            <label for="classSubjectInput">Môn học</label>
+                            <div class="searchable-wrap">
+                                <input id="classSubjectInput" placeholder="Gõ mã hoặc tên môn học..." autocomplete="off" required>
+                                <input type="hidden" id="classSubject">
+                                <div id="classSubjectList" class="searchable-list"></div>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Nút thêm + ô lọc nằm cùng hàng -->
-                    <div class="actions-bar">
+                    <h3 style="margin:16px 0 8px;font-size:1rem;">Các buổi học</h3>
+                    <div id="sessionsList"></div>
+                    <button type="button" class="secondary small" onclick="addSessionRow()">+ Thêm buổi học</button>
+
+                    <div class="actions-bar" style="margin-top:16px;">
                         <div class="actions-left">
                             <button id="classSubmit" type="submit">Thêm lớp học</button>
                             <button id="classCancel" class="secondary hidden" type="button" onclick="cancelClassEdit()">Hủy sửa</button>
                         </div>
-
-                        <div class="field filter-field">
-                            <input id="classSearch" placeholder="Lọc: mã lớp, tên môn học,...">
-                        </div>
                     </div>
-
                     <div id="classStatus" class="status"></div>
                 </form>
             </section>
 
             <section id="classListPanel" class="panel" data-teacher-tab="classes">
                 <h2>Danh sách lớp học</h2>
+                <div class="filter-row">
+                    <div class="field">
+                        <input id="classSearch" placeholder="Lọc: mã lớp, môn, giảng viên...">
+                    </div>
+                </div>
                 <div id="classTable" class="table-wrap"></div>
             </section>
         </div>

@@ -358,17 +358,6 @@ function buildInstructions(routePath){
     });
 }
 
-function validateRoom(roomInput){
-    const location = findLocation(roomInput);
-
-    if(location.error || location.type !== "room"){
-        return {
-            error: "Phòng học phải đúng định dạng và có trong dữ liệu bản đồ"
-        };
-    }
-
-    return location;
-}
 
 function findLocation(input){
     const normalized = normalizeText(input);
@@ -816,12 +805,6 @@ app.get('/api/demo-credentials', (req, res) => {
     res.json({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
 });
 
-app.post('/api/ctu-login', (req, res) => {
-    res.status(501).json({
-        error: "Chưa hỗ trợ đăng nhập trực tiếp vào HTQL CTU",
-        detail: "Tính năng này cần API chính thức hoặc cơ chế ủy quyền an toàn từ trường."
-    });
-});
 
 app.get('/api/me', async (req, res) => {
     const auth = await requireAuth(req, res);
@@ -1198,7 +1181,7 @@ app.delete('/api/classes/:id', async (req, res) => {
         await database.createNotification(
             studentId,
             'Lớp học đã bị xóa',
-            `Lớp ${existing.classCode} đã bị admin xóa khỏi hệ thống.`
+            `Lớp ${existing.classCode} đã bị xóa khỏi hệ thống.`
         );
     }
 
@@ -1285,7 +1268,7 @@ app.post('/api/notifications/:id/read', async (req, res) => {
     if(!auth) return;
 
     await database.markNotificationRead(auth.userId, req.params.id);
-    res.json({ message: "Đã đánh dấu đã đọc" });
+    res.json({ message: "Đã xóa thông báo" });
 });
 
 app.post('/api/notifications/read-all', async (req, res) => {
@@ -1293,7 +1276,7 @@ app.post('/api/notifications/read-all', async (req, res) => {
     if(!auth) return;
 
     await database.markAllNotificationsRead(auth.userId);
-    res.json({ message: "Đã đánh dấu tất cả đã đọc" });
+    res.json({ message: "Đã xóa tất cả thông báo" });
 });
 
 // ---------- Buildings & Parking ----------

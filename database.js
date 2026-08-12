@@ -786,8 +786,7 @@ async function listNotifications(studentId, limit = 50){
 
 async function markNotificationRead(studentId, notificationId){
     const result = await getPool().query(
-        `UPDATE notifications
-         SET is_read = true
+        `DELETE FROM notifications
          WHERE id = $1 AND student_id = $2`,
         [notificationId, studentId]
     );
@@ -796,7 +795,7 @@ async function markNotificationRead(studentId, notificationId){
 
 async function markAllNotificationsRead(studentId){
     await getPool().query(
-        `UPDATE notifications SET is_read = true WHERE student_id = $1`,
+        `DELETE FROM notifications WHERE student_id = $1`,
         [studentId]
     );
 }

@@ -47,20 +47,6 @@ async function login(event){
     }
 }
 
-async function ctuLogin(){
-    try{
-        await api('/api/ctu-login', {
-            method:'POST',
-            body:JSON.stringify({
-                studentId:document.getElementById('loginId').value
-            })
-        });
-    }
-    catch(error){
-        setStatus('authStatus', error.message, true);
-    }
-}
-
 window.ctuReady.then(() => {
     if(currentUser){
         setStatus('authStatus', `Bạn đang đăng nhập bằng tài khoản ${currentUser.userId}.`);

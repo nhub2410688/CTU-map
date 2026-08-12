@@ -88,7 +88,10 @@ function renderShell(){
         <div id="notifPanel" class="notif-panel hidden">
             <div class="notif-head">
                 <strong>Thông báo</strong>
-                <button type="button" class="small secondary" onclick="markAllNotifsRead()">Đánh dấu đã đọc</button>
+                <div class="notif-head-actions">
+                    <button type="button" class="small secondary" onclick="markAllNotifsRead()">Xóa tất cả</button>
+                    <button type="button" class="icon secondary" aria-label="Đóng thông báo" onclick="closeNotifications()">×</button>
+                </div>
             </div>
             <div id="notifList" class="notif-list"></div>
         </div>
@@ -119,14 +122,6 @@ function renderShell(){
                             <option value="5">Thứ 5</option>
                             <option value="6">Thứ 6</option>
                             <option value="7">Thứ 7</option>
-                        </select>
-                    </div>
-                    <div class="field">
-                        <label for="globalSessionFilter">Buổi</label>
-                        <select id="globalSessionFilter">
-                            <option value="">Cả ngày</option>
-                            <option value="morning">Buổi sáng</option>
-                            <option value="afternoon">Buổi chiều</option>
                         </select>
                     </div>
                 </div>
@@ -227,7 +222,6 @@ function buildGlobalSearchQuery(){
     const q = document.getElementById('globalSearchInput').value;
     const building = document.getElementById('globalBuildingFilter').value;
     const day = document.getElementById('globalDayFilter').value;
-    const session = document.getElementById('globalSessionFilter').value;
 
     if(q){
         params.set('q', q);
@@ -237,9 +231,6 @@ function buildGlobalSearchQuery(){
     }
     if(day){
         params.set('day', day);
-    }
-    if(session){
-        params.set('session', session);
     }
 
     return params.toString();
@@ -305,7 +296,6 @@ function clearGlobalSearch(){
     document.getElementById('globalSearchInput').value = '';
     document.getElementById('globalBuildingFilter').value = '';
     document.getElementById('globalDayFilter').value = '';
-    document.getElementById('globalSessionFilter').value = '';
     runGlobalSearch();
 }
 
@@ -418,6 +408,7 @@ async function initializePage(){
         if(event.key === 'Escape'){
             closeGlobalSearch();
             closeMainNav();
+            closeNotifications();
         }
     });
 }
@@ -477,14 +468,29 @@ async function loadNotifications(){
     }
 }
 
+function closeNotifications(){
+    const panel = document.getElementById('notifPanel');
+    if(panel) panel.classList.add('hidden');
+}
+
 function toggleNotifications(){
     const panel = document.getElementById('notifPanel');
     if(!panel) return;
+    const willOpen = panel.classList.contains('hidden');
     panel.classList.toggle('hidden');
-    if(!panel.classList.contains('hidden')){
+    if(willOpen){
         loadNotifications();
     }
 }
+
+// Click ra ngoài panel + chuông → đóng
+document.addEventListener('click', event => {
+    const panel = document.getElementById('notifPanel');
+    const btn = document.getElementById('notifBtn');
+    if(!panel || panel.classList.contains('hidden')) return;
+    if(panel.contains(event.target) || (btn && btn.contains(event.target))) return;
+    closeNotifications();
+});
 
 async function markAllNotifsRead(){
     try{
@@ -509,6 +515,7 @@ initializePage = async function(){
                 .notif-badge { position:absolute; top:-2px; right:0; background:#e53935; color:#fff; border-radius:10px; font-size:0.65rem; padding:1px 5px; min-width:16px; }
                 .notif-panel { position:fixed; top:70px; right:12px; width:320px; max-height:400px; overflow:auto; background:#fff; border:1px solid #ddd; border-radius:8px; box-shadow:0 4px 16px rgba(0,0,0,.15); z-index:1000; padding:12px; }
                 .notif-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+                .notif-head-actions { display:flex; gap:6px; align-items:center; }
                 .notif-item { padding:8px; border-bottom:1px solid #eee; cursor:pointer; }
                 .notif-item.unread { background:#f0f7ff; }
                 .notif-item p { margin:4px 0; font-size:0.9em; }

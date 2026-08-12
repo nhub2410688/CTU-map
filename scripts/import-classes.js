@@ -4,6 +4,7 @@ require('dotenv').config({
 
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const database = require('../database');
 
 async function main() {
@@ -15,44 +16,69 @@ async function main() {
     adminPassword: process.env.ADMIN_PASSWORD
   });
 
-  // load mapping
-  const subjects = await database.getAllSubjects();
-  const teachers = await database.getAllTeachers();
-
+  // Lấy môn + GV từ DB (loadState đã có sẵn)
+  const state = await database.loadState();
   const subjectMap = Object.fromEntries(
-    subjects.map(s => [s.code, s.id])
+    (state.subjects || []).map(s => [String(s.code).toUpperCase(), s.id])
   );
-
   const teacherMap = Object.fromEntries(
-    teachers.map(t => [t.code, t.id])
+    (state.teachers || []).map(t => [String(t.code).toUpperCase(), t.id])
   );
 
   let ok = 0;
   let skip = 0;
 
   for (const item of list) {
-    try {
-      const subjectId = subjectMap[item.subjectCode];
-      const teacherId = teacherMap[item.teacherCode];
+    const classCode = String(item.classCode || '').trim().toUpperCase();
+    const subjectCode = String(item.subjectCode || '').trim().toUpperCase();
+    const teacherCode = String(item.teacherCode || '').trim().toUpperCase();
+    const sessions = Array.isArray(item.sessions) ? item.sessions : [];
 
-      if (!subjectId || !teacherId) {
-        throw new Error('Missing subject or teacher');
+    try {
+      if (!classCode) throw new Error('Thiếu classCode');
+      if (!sessions.length) throw new Error('Thiếu sessions');
+
+      const subjectId = subjectMap[subjectCode];
+      const teacherId = teacherMap[teacherCode];
+      if (!subjectId) throw new Error(`Không tìm thấy môn ${subjectCode}`);
+      if (!teacherId) throw new Error(`Không tìm thấy GV ${teacherCode}`);
+
+      // Trùng mã lớp
+      const existing = await database.listClassSections({ q: classCode });
+      if (existing.some(c => c.classCode.toUpperCase() === classCode)) {
+        throw new Error('Mã lớp đã tồn tại');
       }
 
-      await database.insertTeacherSchedule({
-        teacherId,
-        subjectId,
-        day: item.day,
-        period: item.period,
-        duration: item.duration,
-        room: item.room
-      });
+      const normalizedSessions = sessions.map(s => ({
+        id: crypto.randomUUID(),
+        day: Number(s.day),
+        startPeriod: Number(s.startPeriod ?? s.period),
+        duration: Number(s.duration),
+        room: String(s.room || '').trim(),
+        routeNode: String(s.routeNode || '') // ngoài khu II để trống
+      }));
 
-      ok++;
-      console.log('OK', item.subjectCode, item.teacherCode);
+      for (const s of normalizedSessions) {
+        if (!s.day || !s.startPeriod || !s.duration || !s.room) {
+          throw new Error('Session thiếu day/startPeriod/duration/room');
+        }
+      }
+
+      await database.insertClassSection(
+        {
+          id: crypto.randomUUID(),
+          classCode,
+          subjectId,
+          teacherId
+        },
+        normalizedSessions
+      );
+
+      ok += 1;
+      console.log('OK', classCode, subjectCode, teacherCode, `(${normalizedSessions.length} buổi)`);
     } catch (err) {
-      skip++;
-      console.warn('SKIP', item, err.message);
+      skip += 1;
+      console.warn('SKIP', classCode || item, '-', err.message);
     }
   }
 

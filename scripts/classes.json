@@ -1,0 +1,1132 @@
+[
+  {
+    "classCode": "2696A1",
+    "subjectCode": "CT100",
+    "teacherCode": "001603",
+    "teacherName": "Hồ Văn Tú",
+    "sessions": [
+      { "day": 3, "startPeriod": 3, "duration": 3, "room": "203/D1" },
+      { "day": 6, "startPeriod": 4, "duration": 2, "room": "203/D1" }
+    ]
+  },
+  {
+    "classCode": "2696A2",
+    "subjectCode": "CT100",
+    "teacherCode": "001169",
+    "teacherName": "Hoàng Minh Trí",
+    "sessions": [
+      { "day": 4, "startPeriod": 1, "duration": 3, "room": "103/C1" },
+      { "day": 6, "startPeriod": 1, "duration": 2, "room": "104/C2" }
+    ]
+  },
+  {
+    "classCode": "26D1A1",
+    "subjectCode": "CT100",
+    "teacherCode": "001322",
+    "teacherName": "Lê Thị Diễm",
+    "sessions": [
+      { "day": 3, "startPeriod": 1, "duration": 3, "room": "403/D1" },
+      { "day": 4, "startPeriod": 4, "duration": 2, "room": "103/C1" }
+    ]
+  },
+  {
+    "classCode": "26D1A2",
+    "subjectCode": "CT100",
+    "teacherCode": "002301",
+    "teacherName": "Lê Minh Lý",
+    "sessions": [
+      { "day": 4, "startPeriod": 3, "duration": 3, "room": "302/D1" },
+      { "day": 5, "startPeriod": 8, "duration": 2, "room": "301/D2" }
+    ]
+  },
+  {
+    "classCode": "26D2A1",
+    "subjectCode": "CT100",
+    "teacherCode": "002395",
+    "teacherName": "Đặng Mỹ Hạnh",
+    "sessions": [
+      { "day": 2, "startPeriod": 3, "duration": 3, "room": "203/D1" },
+      { "day": 3, "startPeriod": 4, "duration": 2, "room": "103/A3" }
+    ]
+  },
+  {
+    "classCode": "26T9A1",
+    "subjectCode": "CT100",
+    "teacherCode": "001603",
+    "teacherName": "Hồ Văn Tú",
+    "sessions": [
+      { "day": 2, "startPeriod": 1, "duration": 3, "room": "307/D2" },
+      { "day": 4, "startPeriod": 1, "duration": 2, "room": "202/C1" }
+    ]
+  },
+  {
+    "classCode": "26T9A2",
+    "subjectCode": "CT100",
+    "teacherCode": "001169",
+    "teacherName": "Hoàng Minh Trí",
+    "sessions": [
+      { "day": 4, "startPeriod": 6, "duration": 3, "room": "202/C1" },
+      { "day": 5, "startPeriod": 4, "duration": 2, "room": "111/B1" }
+    ]
+  },
+  {
+    "classCode": "26V7A1",
+    "subjectCode": "CT100",
+    "teacherCode": "001322",
+    "teacherName": "Lê Thị Diễm",
+    "sessions": [
+      { "day": 3, "startPeriod": 6, "duration": 2, "room": "103/A3" },
+      { "day": 4, "startPeriod": 6, "duration": 3, "room": "203/D1" }
+    ]
+  },
+  {
+    "classCode": "26V7A2",
+    "subjectCode": "CT100",
+    "teacherCode": "002301",
+    "teacherName": "Lê Minh Lý",
+    "sessions": [
+      { "day": 3, "startPeriod": 1, "duration": 2, "room": "102/KL" },
+      { "day": 5, "startPeriod": 1, "duration": 3, "room": "302/D1" }
+    ]
+  },
+  {
+    "classCode": "26Z6A1",
+    "subjectCode": "CT100",
+    "teacherCode": "001603",
+    "teacherName": "Hồ Văn Tú",
+    "sessions": [
+      { "day": 4, "startPeriod": 3, "duration": 3, "room": "202/C1" },
+      { "day": 5, "startPeriod": 1, "duration": 2, "room": "306/C1" }
+    ]
+  },
+  {
+  "classCode": "26Z6A2",
+  "subjectCode": "CT100",
+  "teacherCode": "001169",
+  "teacherName": "Hoàng Minh Trí",
+  "sessions": [
+    { "day": 2, "startPeriod": 3, "duration": 3, "room": "204/D2" },
+    { "day": 6, "startPeriod": 4, "duration": 2, "room": "202/C1" }
+  ]
+},
+{
+  "classCode": "26V7A5",
+  "subjectCode": "CT100",
+  "teacherCode": "001322",
+  "teacherName": "Lê Thị Diễm",
+  "sessions": [
+    { "day": 4, "startPeriod": 1, "duration": 3, "room": "307/D2" }
+  ]
+},
+{
+  "classCode": "CT20001",
+  "subjectCode": "CT200",
+  "teacherCode": "001457",
+  "teacherName": "Lê Hoàng Thảo",
+  "sessions": [
+    { "day": 2, "startPeriod": 6, "duration": 4, "room": "011/K3" },
+    { "day": 4, "startPeriod": 6, "duration": 3, "room": "011/K3" }
+  ]
+},
+{
+  "classCode": "CT17201",
+  "subjectCode": "CT172",
+  "teacherCode": "002854",
+  "teacherName": "Huỳnh Ngọc Thái Anh",
+  "sessions": [
+    { "day": 3, "startPeriod": 6, "duration": 3, "room": "203/K3" },
+    { "day": 6, "startPeriod": 6, "duration": 3, "room": "203/K3" }
+  ]
+},
+{
+  "classCode": "CT17202",
+  "subjectCode": "CT172",
+  "teacherCode": "002484",
+  "teacherName": "Nguyễn Bá Diệp",
+  "sessions": [
+    { "day": 2, "startPeriod": 1, "duration": 3, "room": "304/C1" },
+    { "day": 3, "startPeriod": 1, "duration": 3, "room": "304/D1" }
+  ]
+},
+{
+  "classCode": "CT10101",
+  "subjectCode": "CT101",
+  "teacherCode": "001068",
+  "teacherName": "Trương Thị Thanh Tuyền",
+  "sessions": [
+    { "day": 2, "startPeriod": 6, "duration": 4, "room": "203/DI" },
+    { "day": 3, "startPeriod": 6, "duration": 4, "room": "203/DI" }
+  ]
+},
+{
+  "classCode": "CT17701",
+  "subjectCode": "CT177",
+  "teacherCode": "001586",
+  "teacherName": "Phan Huy Cường",
+  "sessions": [
+    { "day": 3, "startPeriod": 1, "duration": 4, "room": "103/DI" },
+    { "day": 5, "startPeriod": 6, "duration": 2, "room": "305/C1" }
+  ]
+},
+{
+  "classCode": "CT17702",
+  "subjectCode": "CT177",
+  "teacherCode": "001330",
+  "teacherName": "Châu Xuân Phương",
+  "sessions": [
+    { "day": 2, "startPeriod": 6, "duration": 3, "room": "306/D1" },
+    { "day": 4, "startPeriod": 6, "duration": 3, "room": "103/C1" }
+  ]
+},
+{
+  "classCode": "CT17703",
+  "subjectCode": "CT177",
+  "teacherCode": "001330",
+  "teacherName": "Châu Xuân Phương",
+  "sessions": [
+    { "day": 3, "startPeriod": 1, "duration": 3, "room": "103/C1" },
+    { "day": 5, "startPeriod": 1, "duration": 3, "room": "304/C1" }
+  ]
+},
+{
+  "classCode": "CT17401",
+  "subjectCode": "CT174",
+  "teacherCode": "001069",
+  "teacherName": "Võ Huỳnh Trâm",
+  "sessions": [
+    { "day": 4, "startPeriod": 1, "duration": 4, "room": "303/C1" }
+  ]
+},
+{
+  "classCode": "CT17402",
+  "subjectCode": "CT174",
+  "teacherCode": "001069",
+  "teacherName": "Võ Huỳnh Trâm",
+  "sessions": [
+    { "day": 3, "startPeriod": 1, "duration": 4, "room": "303/C1" }
+  ]
+},
+{
+  "classCode": "CT17403",
+  "subjectCode": "CT174",
+  "teacherCode": "001069",
+  "teacherName": "Võ Huỳnh Trâm",
+  "sessions": [
+    { "day": 5, "startPeriod": 1, "duration": 4, "room": "303/C1" }
+  ]
+},
+{
+  "classCode": "CT17404",
+  "subjectCode": "CT174",
+  "teacherCode": "002995",
+  "teacherName": "Nguyễn Thanh Khoa",
+  "sessions": [
+    { "day": 5, "startPeriod": 1, "duration": 4, "room": "206/D1" }
+  ]
+},
+{
+  "classCode": "CT17501",
+  "subjectCode": "CT175",
+  "teacherCode": "002483",
+  "teacherName": "Võ Trí Thức",
+  "sessions": [
+    { "day": 3, "startPeriod": 6, "duration": 4, "room": "303/C1" }
+  ]
+},
+{
+  "classCode": "CT17502",
+  "subjectCode": "CT175",
+  "teacherCode": "002937",
+  "teacherName": "Mã Trường Thành",
+  "sessions": [
+    { "day": 5, "startPeriod": 2, "duration": 4, "room": "201/K3" }
+  ]
+},
+{
+  "classCode": "CT17503",
+  "subjectCode": "CT175",
+  "teacherCode": "002977",
+  "teacherName": "Huỳnh Gia Khương",
+  "sessions": [
+    { "day": 3, "startPeriod": 6, "duration": 4, "room": "306/D1" }
+  ]
+},
+{
+  "classCode": "CT17504",
+  "subjectCode": "CT175",
+  "teacherCode": "002640",
+  "teacherName": "Phạm Nguyên Hoàng",
+  "sessions": [
+    { "day": 5, "startPeriod": 6, "duration": 4, "room": "307/D1" }
+  ]
+},
+{
+  "classCode": "CT17505",
+  "subjectCode": "CT175",
+  "teacherCode": "002640",
+  "teacherName": "Phạm Nguyên Hoàng",
+  "sessions": [
+    { "day": 2, "startPeriod": 1, "duration": 4, "room": "304/D1" }
+  ]
+},
+{
+  "classCode": "CT17506",
+  "subjectCode": "CT175",
+  "teacherCode": "002854",
+  "teacherName": "Huỳnh Ngọc Thái Anh",
+  "sessions": [
+    { "day": 5, "startPeriod": 1, "duration": 4, "room": "203/K3" }
+  ]
+},
+{
+  "classCode": "CT17601",
+  "subjectCode": "CT176",
+  "teacherCode": "001230",
+  "teacherName": "Phan Thượng Cang",
+  "sessions": [
+    { "day": 2, "startPeriod": 6, "duration": 4, "room": "206/D1" }
+  ]
+},
+{
+  "classCode": "CT17602",
+  "subjectCode": "CT176",
+  "teacherCode": "001230",
+  "teacherName": "Phan Thượng Cang",
+  "sessions": [
+    { "day": 3, "startPeriod": 1, "duration": 4, "room": "206/D1" }
+  ]
+},
+{
+  "classCode": "CT17603",
+  "subjectCode": "CT176",
+  "teacherCode": "001230",
+  "teacherName": "Phan Thượng Cang",
+  "sessions": [
+    { "day": 3, "startPeriod": 6, "duration": 4, "room": "302/C1" }
+  ]
+},
+{
+  "classCode": "CT17604",
+  "subjectCode": "CT176",
+  "teacherCode": "001230",
+  "teacherName": "Phan Thượng Cang",
+  "sessions": [
+    { "day": 4, "startPeriod": 1, "duration": 4, "room": "302/C1" }
+  ]
+},
+{
+  "classCode": "CT17605",
+  "subjectCode": "CT176",
+  "teacherCode": "002481",
+  "teacherName": "Triệu Thanh Ngoan",
+  "sessions": [
+    { "day": 2, "startPeriod": 1, "duration": 4, "room": "301/D1" }
+  ]
+},
+{
+  "classCode": "CT17606",
+  "subjectCode": "CT176",
+  "teacherCode": "002481",
+  "teacherName": "Triệu Thanh Ngoan",
+  "sessions": [
+    { "day": 4, "startPeriod": 1, "duration": 4, "room": "304/D1" }
+  ]
+},
+{
+  "classCode": "CT17607",
+  "subjectCode": "CT176",
+  "teacherCode": "001168",
+  "teacherName": "Nguyễn Công Huy",
+  "sessions": [
+    { "day": 3, "startPeriod": 1, "duration": 3, "room": "301/C1" },
+    { "day": 5, "startPeriod": 1, "duration": 4, "room": "203/DI" }
+  ]
+},
+{
+  "classCode": "CT17609",
+  "subjectCode": "CT176",
+  "teacherCode": "001708",
+  "teacherName": "Lâm Chí Nguyện",
+  "sessions": [
+    { "day": 3, "startPeriod": 1, "duration": 4, "room": "307/D1" }
+  ]
+},
+{
+  "classCode": "CT17301",
+  "subjectCode": "CT173",
+  "teacherCode": "002882",
+  "teacherName": "Trần Duy Quang",
+  "sessions": [
+    { "day": 4, "startPeriod": 6, "duration": 4, "room": "016/K3" }
+  ]
+},
+{
+  "classCode": "CT17302",
+  "subjectCode": "CT173",
+  "teacherCode": "001706",
+  "teacherName": "Bùi Minh Quân",
+  "sessions": [
+    { "day": 6, "startPeriod": 6, "duration": 4, "room": "204/D1" }
+  ]
+},
+{
+  "classCode": "CT17303",
+  "subjectCode": "CT173",
+  "teacherCode": "001706",
+  "teacherName": "Bùi Minh Quân",
+  "sessions": [
+    { "day": 5, "startPeriod": 6, "duration": 4, "room": "304/D1" }
+  ]
+},
+{
+  "classCode": "CT17304",
+  "subjectCode": "CT173",
+  "teacherCode": "001708",
+  "teacherName": "Lâm Chí Nguyện",
+  "sessions": [
+    { "day": 2, "startPeriod": 1, "duration": 4, "room": "011/K3" }
+  ]
+},
+{
+  "classCode": "CT17305",
+  "subjectCode": "CT173",
+  "teacherCode": "001708",
+  "teacherName": "Lâm Chí Nguyện",
+  "sessions": [
+    { "day": 5, "startPeriod": 1, "duration": 4, "room": "304/D1" }
+  ]
+},
+{
+  "classCode": "CT17306",
+  "subjectCode": "CT173",
+  "teacherCode": "002367",
+  "teacherName": "Nguyễn Hữu Vân Long",
+  "sessions": [
+    { "day": 5, "startPeriod": 1, "duration": 4, "room": "011/K3" }
+  ]
+},
+{
+  "classCode": "HG25V7A1",
+  "subjectCode": "CT173",
+  "teacherCode": "001588",
+  "teacherName": "Nguyễn Trọng Nghĩa",
+  "sessions": [
+    { "day": 2, "startPeriod": 6, "duration": 3, "room": "203HA5" },
+    { "day": 3, "startPeriod": 6, "duration": 3, "room": "203HA5" }
+  ]
+},
+{
+  "classCode": "CT17801",
+  "subjectCode": "CT178",
+  "teacherCode": "000516",
+  "teacherName": "Nguyễn Hoàng Việt",
+  "sessions": [
+    { "day": 3, "startPeriod": 6, "duration": 4, "room": "011/K3" }
+  ]
+},
+{
+  "classCode": "CT17802",
+  "subjectCode": "CT178",
+  "teacherCode": "000517",
+  "teacherName": "Trần Cao Đệ",
+  "sessions": [
+    { "day": 4, "startPeriod": 1, "duration": 4, "room": "403/D1" }
+  ]
+},
+{
+  "classCode": "CT17803",
+  "subjectCode": "CT178",
+  "teacherCode": "001349",
+  "teacherName": "Lê Văn Lâm",
+  "sessions": [
+    { "day": 4, "startPeriod": 1, "duration": 4, "room": "204/D1" }
+  ]
+},
+{
+  "classCode": "CT17804",
+  "subjectCode": "CT178",
+  "teacherCode": "001533",
+  "teacherName": "Trần Công Án",
+  "sessions": [
+    { "day": 7, "startPeriod": 6, "duration": 4, "room": "202/C1" }
+  ]
+},
+{
+  "classCode": "CT11201",
+  "subjectCode": "CT112",
+  "teacherCode": "002367",
+  "teacherName": "Nguyễn Hữu Vân Long",
+  "sessions": [
+    { "day": 6, "startPeriod": 6, "duration": 4, "room": "011/K3" }
+  ]
+},
+{
+  "classCode": "CT11202",
+  "subjectCode": "CT112",
+  "teacherCode": "001588",
+  "teacherName": "Nguyễn Trọng Nghĩa",
+  "sessions": [
+    { "day": 5, "startPeriod": 1, "duration": 4, "room": "013/K3" }
+  ]
+},
+{
+  "classCode": "CT11203",
+  "subjectCode": "CT112",
+  "teacherCode": "001588",
+  "teacherName": "Nguyễn Trọng Nghĩa",
+  "sessions": [
+    { "day": 6, "startPeriod": 1, "duration": 4, "room": "205/C1" }
+  ]
+},
+{
+  "classCode": "CT11204",
+  "subjectCode": "CT112",
+  "teacherCode": "001323",
+  "teacherName": "Trần Thanh Điền",
+  "sessions": [
+    { "day": 5, "startPeriod": 1, "duration": 4, "room": "202/D1" }
+  ]
+},
+{
+  "classCode": "CT11205",
+  "subjectCode": "CT112",
+  "teacherCode": "001323",
+  "teacherName": "Trần Thanh Điền",
+  "sessions": [
+    { "day": 4, "startPeriod": 1, "duration": 4, "room": "202/D1" }
+  ]
+},
+{
+  "classCode": "CT11206",
+  "subjectCode": "CT112",
+  "teacherCode": "002882",
+  "teacherName": "Trần Duy Quang",
+  "sessions": [
+    { "day": 6, "startPeriod": 6, "duration": 4, "room": "201/K3" }
+  ]
+},
+{
+  "classCode": "CT11207",
+  "subjectCode": "CT112",
+  "teacherCode": "001124",
+  "teacherName": "Ngô Bá Hùng",
+  "sessions": [
+    { "day": 5, "startPeriod": 1, "duration": 4, "room": "103/C1" }
+  ]
+},
+{
+  "classCode": "CT11208",
+  "subjectCode": "CT112",
+  "teacherCode": "001157",
+  "teacherName": "Lưu Trùng Dương",
+  "sessions": [
+    { "day": 3, "startPeriod": 6, "duration": 4, "room": "204/D1" }
+  ]
+},
+{
+  "classCode": "CT11209",
+  "subjectCode": "CT112",
+  "teacherCode": "001944",
+  "teacherName": "Thái Minh Tuấn",
+  "sessions": [
+    { "day": 3, "startPeriod": 6, "duration": 4, "room": "301/D1" }
+  ]
+},
+{
+  "classCode": "CT17901",
+  "subjectCode": "CT179",
+  "teacherCode": "002881",
+  "teacherName": "Lê Huỳnh Quốc Bảo",
+  "sessions": [
+    { "day": 2, "startPeriod": 6, "duration": 4, "room": "205/D1" }
+  ]
+},
+{
+  "classCode": "CT17902",
+  "subjectCode": "CT179",
+  "teacherCode": "002881",
+  "teacherName": "Lê Huỳnh Quốc Bảo",
+  "sessions": [
+    { "day": 6, "startPeriod": 6, "duration": 4, "room": "303/D1" }
+  ]
+},
+{
+  "classCode": "CT17903",
+  "subjectCode": "CT179",
+  "teacherCode": "002881",
+  "teacherName": "Lê Huỳnh Quốc Bảo",
+  "sessions": [
+    { "day": 4, "startPeriod": 1, "duration": 4, "room": "109/C1" }
+  ]
+},
+{
+  "classCode": "HG25V7A1",
+  "subjectCode": "CT179",
+  "teacherCode": "002881",
+  "teacherName": "Lê Huỳnh Quốc Bảo",
+  "sessions": [
+    { "day": 2, "startPeriod": 2, "duration": 3, "room": "203HA5" },
+    { "day": 3, "startPeriod": 2, "duration": 3, "room": "203HA5" }
+  ]
+},
+{
+  "classCode": "CT18001",
+  "subjectCode": "CT180",
+  "teacherCode": "001353",
+  "teacherName": "Phạm Thị Ngọc Diễm",
+  "sessions": [
+    { "day": 2, "startPeriod": 6, "duration": 4, "room": "205/C1" }
+  ]
+},
+{
+  "classCode": "CT18002",
+  "subjectCode": "CT180",
+  "teacherCode": "001353",
+  "teacherName": "Phạm Thị Ngọc Diễm",
+  "sessions": [
+    { "day": 3, "startPeriod": 6, "duration": 4, "room": "205/C1" }
+  ]
+},
+{
+  "classCode": "CT18003",
+  "subjectCode": "CT180",
+  "teacherCode": "001352",
+  "teacherName": "Nguyễn Thái Nghe",
+  "sessions": [
+    { "day": 2, "startPeriod": 6, "duration": 4, "room": "301/D1" }
+  ]
+},
+{
+  "classCode": "CT18004",
+  "subjectCode": "CT180",
+  "teacherCode": "001352",
+  "teacherName": "Nguyễn Thái Nghe",
+  "sessions": [
+    { "day": 3, "startPeriod": 6, "duration": 4, "room": "303/D1" }
+  ]
+},
+{
+  "classCode": "CT18201",
+  "subjectCode": "CT182",
+  "teacherCode": "002267",
+  "teacherName": "Nguyễn Thanh Hải",
+  "sessions": [
+    { "day": 6, "startPeriod": 1, "duration": 4, "room": "303/D1" }
+  ]
+},
+{
+  "classCode": "CT18202",
+  "subjectCode": "CT182",
+  "teacherCode": "002267",
+  "teacherName": "Nguyễn Thanh Hải",
+  "sessions": [
+    { "day": 2, "startPeriod": 6, "duration": 4, "room": "303/D1" }
+  ]
+},
+{
+  "classCode": "CT18203",
+  "subjectCode": "CT182",
+  "teacherCode": "700556",
+  "teacherName": "Phạm Thị Xuân Lộc",
+  "sessions": [
+    { "day": 2, "startPeriod": 6, "duration": 4, "room": "202/D1" }
+  ]
+},
+{
+  "classCode": "CT18204",
+  "subjectCode": "CT182",
+  "teacherCode": "700556",
+  "teacherName": "Phạm Thị Xuân Lộc",
+  "sessions": [
+    { "day": 4, "startPeriod": 1, "duration": 4, "room": "124ATL" }
+  ]
+},
+{
+  "classCode": "CT18205",
+  "subjectCode": "CT182",
+  "teacherCode": "002625",
+  "teacherName": "Phạm Ngọc Quyền",
+  "sessions": [
+    { "day": 4, "startPeriod": 1, "duration": 4, "room": "016/K3" }
+  ]
+},
+{
+  "classCode": "CT18206",
+  "subjectCode": "CT182",
+  "teacherCode": "001893",
+  "teacherName": "Nguyễn Thị Thanh Hiền",
+  "sessions": [
+    { "day": 5, "startPeriod": 1, "duration": 4, "room": "307/D2" }
+  ]
+},
+{
+  "classCode": "CT18207",
+  "subjectCode": "CT182",
+  "teacherCode": "001070",
+  "teacherName": "Phan Tấn Tài",
+  "sessions": [
+    { "day": 3, "startPeriod": 6, "duration": 4, "room": "103/C1" }
+  ]
+},
+{
+  "classCode": "HG24V7A1",
+  "subjectCode": "CT182",
+  "teacherCode": "002625",
+  "teacherName": "Phạm Ngọc Quyền",
+  "sessions": [
+    { "day": 2, "startPeriod": 2, "duration": 3, "room": "302HA5" },
+    { "day": 3, "startPeriod": 6, "duration": 3, "room": "302HA5" }
+  ]
+},
+{
+  "classCode": "CT29601",
+  "subjectCode": "CT296",
+  "teacherCode": "001070",
+  "teacherName": "Phan Tấn Tài",
+  "sessions": [
+    { "day": 5, "startPeriod": 6, "duration": 4, "room": "109/C1" }
+  ]
+},
+{
+  "classCode": "CT29602",
+  "subjectCode": "CT296",
+  "teacherCode": "001070",
+  "teacherName": "Phan Tấn Tài",
+  "sessions": [
+    { "day": 3, "startPeriod": 1, "duration": 4, "room": "302/C1" }
+  ]
+},
+{
+  "classCode": "CT29603",
+  "subjectCode": "CT296",
+  "teacherCode": "001070",
+  "teacherName": "Phan Tấn Tài",
+  "sessions": [
+    { "day": 6, "startPeriod": 6, "duration": 4, "room": "205/C1" }
+  ]
+},
+{
+  "classCode": "CT29604",
+  "subjectCode": "CT296",
+  "teacherCode": "001531",
+  "teacherName": "Trương Quốc Định",
+  "sessions": [
+    { "day": 2, "startPeriod": 6, "duration": 4, "room": "305/C1" }
+  ]
+},
+{
+  "classCode": "CT29605",
+  "subjectCode": "CT296",
+  "teacherCode": "001531",
+  "teacherName": "Trương Quốc Định",
+  "sessions": [
+    { "day": 3, "startPeriod": 6, "duration": 4, "room": "305/C1" }
+  ]
+},
+{
+  "classCode": "CT29606",
+  "subjectCode": "CT296",
+  "teacherCode": "001531",
+  "teacherName": "Trương Quốc Định",
+  "sessions": [
+    { "day": 5, "startPeriod": 1, "duration": 4, "room": "305/C1" }
+  ]
+},
+{
+  "classCode": "CT29607",
+  "subjectCode": "CT296",
+  "teacherCode": "001531",
+  "teacherName": "Trương Quốc Định",
+  "sessions": [
+    { "day": 5, "startPeriod": 6, "duration": 4, "room": "304/C1" }
+  ]
+},
+{
+  "classCode": "CT19001",
+  "subjectCode": "CT190",
+  "teacherCode": "002635",
+  "teacherName": "Trần Nguyễn Minh Thư",
+  "sessions": [
+    { "day": 3, "startPeriod": 1, "duration": 3, "room": "305/C1" }
+  ]
+},
+{
+  "classCode": "CT19002",
+  "subjectCode": "CT190",
+  "teacherCode": "002977",
+  "teacherName": "Huỳnh Gia Khương",
+  "sessions": [
+    { "day": 5, "startPeriod": 6, "duration": 3, "room": "306/D1" }
+  ]
+},
+{
+  "classCode": "HG24V7A1",
+  "subjectCode": "CT190",
+  "teacherCode": "002736",
+  "teacherName": "Phạm Việt Truyền",
+  "sessions": [
+    { "day": 4, "startPeriod": 2, "duration": 3, "room": "302HA5" }
+  ]
+},
+{
+  "classCode": "HG25V7A1",
+  "subjectCode": "CT190",
+  "teacherCode": "002736",
+  "teacherName": "Phạm Việt Truyền",
+  "sessions": [
+    { "day": 5, "startPeriod": 6, "duration": 3, "room": "103HA5" }
+  ]
+},
+{
+  "classCode": "CT18801",
+  "subjectCode": "CT188",
+  "teacherCode": "001042",
+  "teacherName": "Vũ Duy Linh",
+  "sessions": [
+    { "day": 3, "startPeriod": 1, "duration": 4, "room": "016/K3" }
+  ]
+},
+{
+  "classCode": "CT18802",
+  "subjectCode": "CT188",
+  "teacherCode": "002454",
+  "teacherName": "Phạm Trương Hồng Ngân",
+  "sessions": [
+    { "day": 5, "startPeriod": 6, "duration": 4, "room": "016/K3" }
+  ]
+},
+{
+  "classCode": "CT18803",
+  "subjectCode": "CT188",
+  "teacherCode": "002455",
+  "teacherName": "Lê Văn Quan",
+  "sessions": [
+    { "day": 6, "startPeriod": 1, "duration": 4, "room": "011/K3" }
+  ]
+},
+{
+  "classCode": "CT18804",
+  "subjectCode": "CT188",
+  "teacherCode": "001042",
+  "teacherName": "Vũ Duy Linh",
+  "sessions": [
+    { "day": 4, "startPeriod": 1, "duration": 4, "room": "013/K3" }
+  ]
+},
+{
+  "classCode": "CT18805",
+  "subjectCode": "CT188",
+  "teacherCode": "002454",
+  "teacherName": "Phạm Trương Hồng Ngân",
+  "sessions": [
+    { "day": 3, "startPeriod": 1, "duration": 4, "room": "305/D1" }
+  ]
+},
+{
+  "classCode": "HG25V7A1",
+  "subjectCode": "CT188",
+  "teacherCode": "002455",
+  "teacherName": "Lê Văn Quan",
+  "sessions": [
+    { "day": 6, "startPeriod": 6, "duration": 3, "room": "102HA1" }
+  ]
+},
+{
+  "classCode": "CT19901",
+  "subjectCode": "CT199",
+  "teacherCode": "001707",
+  "teacherName": "Phạm Xuân Hiền",
+  "sessions": [
+    { "day": 2, "startPeriod": 1, "duration": 4, "room": "403/D1" }
+  ]
+},
+{
+  "classCode": "CT47901",
+  "subjectCode": "CT479",
+  "teacherCode": "002692",
+  "teacherName": "Trần Việt Châu",
+  "sessions": [
+    { "day": 3, "startPeriod": 6, "duration": 4, "room": "108/A3" }
+  ]
+},
+{
+  "classCode": "CT29201",
+  "subjectCode": "CT292",
+  "teacherCode": "002640",
+  "teacherName": "Phạm Nguyên Hoàng",
+  "sessions": [
+    { "day": 4, "startPeriod": 1, "duration": 4, "room": "307/D1" }
+  ]
+},
+{
+  "classCode": "CT12101",
+  "subjectCode": "CT121",
+  "teacherCode": "001707",
+  "teacherName": "Phạm Xuân Hiền",
+  "sessions": [
+    { "day": 3, "startPeriod": 1, "duration": 4, "room": "302/D1" }
+  ]
+},
+{
+  "classCode": "CT33201",
+  "subjectCode": "CT332",
+  "teacherCode": "002484",
+  "teacherName": "Nguyễn Bá Diệp",
+  "sessions": [
+    { "day": 4, "startPeriod": 1, "duration": 4, "room": "305/C1" }
+  ]
+},
+{
+  "classCode": "CT33202",
+  "subjectCode": "CT332",
+  "teacherCode": "002483",
+  "teacherName": "Võ Trí Thức",
+  "sessions": [
+    { "day": 3, "startPeriod": 1, "duration": 4, "room": "301/D1" }
+  ]
+},
+{
+  "classCode": "CT33203",
+  "subjectCode": "CT332",
+  "teacherCode": "002805",
+  "teacherName": "Lưu Tiến Đạo",
+  "sessions": [
+    { "day": 2, "startPeriod": 2, "duration": 4, "room": "303/D1" }
+  ]
+},
+{
+  "classCode": "CT29401",
+  "subjectCode": "CT294",
+  "teacherCode": "002635",
+  "teacherName": "Trần Nguyễn Minh Thư",
+  "sessions": [
+    { "day": 2, "startPeriod": 6, "duration": 4, "room": "304/C1" }
+  ]
+},
+{
+  "classCode": "CT29402",
+  "subjectCode": "CT294",
+  "teacherCode": "002977",
+  "teacherName": "Huỳnh Gia Khương",
+  "sessions": [
+    { "day": 6, "startPeriod": 6, "duration": 4, "room": "016/K3" }
+  ]
+},
+{
+  "classCode": "CT29403",
+  "subjectCode": "CT294",
+  "teacherCode": "002524",
+  "teacherName": "Nguyễn Tí Hon",
+  "sessions": [
+    { "day": 6, "startPeriod": 1, "duration": 4, "room": "013/K3" }
+  ]
+},
+{
+  "classCode": "CT46701",
+  "subjectCode": "CT467",
+  "teacherCode": "002880",
+  "teacherName": "Nguyễn Thị Kim Yến",
+  "sessions": [
+    { "day": 6, "startPeriod": 6, "duration": 4, "room": "302/C1" }
+  ]
+},
+{
+  "classCode": "CT46702",
+  "subjectCode": "CT467",
+  "teacherCode": "002880",
+  "teacherName": "Nguyễn Thị Kim Yến",
+  "sessions": [
+    { "day": 5, "startPeriod": 6, "duration": 4, "room": "203/C2" }
+  ]
+},
+{
+  "classCode": "CT20401",
+  "subjectCode": "CT204",
+  "teacherCode": "700590",
+  "teacherName": "Lê Quyết Thắng",
+  "sessions": [
+    { "day": 3, "startPeriod": 1, "duration": 4, "room": "304/C1" }
+  ]
+},
+{
+  "classCode": "CT204002",
+  "subjectCode": "CT204",
+  "teacherCode": "002870",
+  "teacherName": "Phan Bích Chung",
+  "sessions": [
+    { "day": 5, "startPeriod": 1, "duration": 4, "room": "303/DB" }
+  ]
+},
+{
+  "classCode": "CT31601",
+  "subjectCode": "CT316",
+  "teacherCode": "002692",
+  "teacherName": "Trần Việt Châu",
+  "sessions": [
+    { "day": 5, "startPeriod": 6, "duration": 4, "room": "303/D1" }
+  ]
+},
+{
+  "classCode": "CT31602",
+  "subjectCode": "CT316",
+  "teacherCode": "002692",
+  "teacherName": "Trần Việt Châu",
+  "sessions": [
+    { "day": 4, "startPeriod": 1, "duration": 4, "room": "303/D1" }
+  ]
+},
+{
+  "classCode": "DI2296A1",
+  "subjectCode": "CT207",
+  "teacherCode": "001124",
+  "teacherName": "Ngô Bá Hùng",
+  "sessions": [
+    { "day": 2, "startPeriod": 6, "duration": 4, "room": "303/C1" }
+  ]
+},
+{
+  "classCode": "CT44901",
+  "subjectCode": "CT449",
+  "teacherCode": "001043",
+  "teacherName": "Nguyễn Minh Trung",
+  "sessions": [
+    { "day": 7, "startPeriod": 6, "duration": 4, "room": "101/DB" }
+  ]
+},
+{
+  "classCode": "CT42801",
+  "subjectCode": "CT428",
+  "teacherCode": "002366",
+  "teacherName": "Hà Duy An",
+  "sessions": [
+    { "day": 3, "startPeriod": 1, "duration": 4, "room": "013/K3" }
+  ]
+},
+{
+  "classCode": "CT42802",
+  "subjectCode": "CT428",
+  "teacherCode": "002366",
+  "teacherName": "Hà Duy An",
+  "sessions": [
+    { "day": 2, "startPeriod": 6, "duration": 4, "room": "203/K3" }
+  ]
+},
+{
+  "classCode": "CT42803",
+  "subjectCode": "CT428",
+  "teacherCode": "002366",
+  "teacherName": "Hà Duy An",
+  "sessions": [
+    { "day": 4, "startPeriod": 6, "duration": 3, "room": "208/C1" },
+    { "day": 6, "startPeriod": 1, "duration": 3, "room": "208/C1" }
+  ]
+},
+{
+  "classCode": "CT21001",
+  "subjectCode": "CT210",
+  "teacherCode": "002640",
+  "teacherName": "Phạm Nguyên Hoàng",
+  "sessions": [
+    { "day": 5, "startPeriod": 1, "duration": 4, "room": "305/D1" }
+  ]
+},
+{
+  "classCode": "CT20201",
+  "subjectCode": "CT202",
+  "teacherCode": "001229",
+  "teacherName": "Phạm Thế Phi",
+  "sessions": [
+    { "day": 6, "startPeriod": 6, "duration": 4, "room": "208/C1" }
+  ]
+},
+{
+  "classCode": "CT28201",
+  "subjectCode": "CT282",
+  "teacherCode": "002937",
+  "teacherName": "Mã Trường Thành",
+  "sessions": [
+    { "day": 6, "startPeriod": 2, "duration": 4, "room": "016/K3" }
+  ]
+},
+{
+  "classCode": "CT21901",
+  "subjectCode": "CT219",
+  "teacherCode": "002524",
+  "teacherName": "Nguyễn Tí Hon",
+  "sessions": [
+    { "day": 5, "startPeriod": 6, "duration": 4, "room": "203/K3" }
+  ]
+},
+{
+  "classCode": "CT22101",
+  "subjectCode": "CT221",
+  "teacherCode": "001168",
+  "teacherName": "Nguyễn Công Huy",
+  "sessions": [
+    { "day": 2, "startPeriod": 1, "duration": 4, "room": "108/A3" }
+  ]
+},
+{
+  "classCode": "CT22201",
+  "subjectCode": "CT222",
+  "teacherCode": "001944",
+  "teacherName": "Thái Minh Tuấn",
+  "sessions": [
+    { "day": 4, "startPeriod": 1, "duration": 4, "room": "304/C1" }
+  ]
+},
+{
+  "classCode": "CT27501",
+  "subjectCode": "CT275",
+  "teacherCode": "002626",
+  "teacherName": "Bùi Võ Quốc Bảo",
+  "sessions": [
+    { "day": 4, "startPeriod": 1, "duration": 4, "room": "206/D1" }
+  ]
+},
+{
+  "classCode": "CT27401",
+  "subjectCode": "CT274",
+  "teacherCode": "002366",
+  "teacherName": "Hà Duy An",
+  "sessions": [
+    { "day": 3, "startPeriod": 6, "duration": 4, "room": "201/K3" }
+  ]
+},
+{
+  "classCode": "CT18901",
+  "subjectCode": "CT189",
+  "teacherCode": "002628",
+  "teacherName": "Huỳnh Quang Nghi",
+  "sessions": [
+    { "day": 2, "startPeriod": 1, "duration": 4, "room": "013/K3" }
+  ]
+},
+{
+  "classCode": "CT29501",
+  "subjectCode": "CT295",
+  "teacherCode": "002815",
+  "teacherName": "Trương Xuân Việt",
+  "sessions": [
+    { "day": 3, "startPeriod": 1, "duration": 4, "room": "203/K3" }
+  ]
+},
+{
+  "classCode": "DI22V7A1",
+  "subjectCode": "CT233",
+  "teacherCode": "001124",
+  "teacherName": "Ngô Bá Hùng",
+  "sessions": [
+    { "day": 5, "startPeriod": 6, "duration": 4, "room": "303/C1" }
+  ]
+},
+{
+  "classCode": "CT23302",
+  "subjectCode": "CT233",
+  "teacherCode": "001706",
+  "teacherName": "Bùi Minh Quân",
+  "sessions": [
+    { "day": 3, "startPeriod": 1, "duration": 4, "room": "306/D1" }
+  ]
+}
+]
